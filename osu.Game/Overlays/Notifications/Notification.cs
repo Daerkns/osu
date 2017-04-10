@@ -35,13 +35,14 @@ namespace osu.Game.Overlays.Notifications
         public virtual bool DisplayOnTop => true;
 
         protected NotificationLight Light;
-        private readonly CloseButton closeButton;
+        protected readonly CloseButton NotificationCloseButton;
         protected Container IconContent;
         private readonly Container content;
 
         protected override Container<Drawable> Content => content;
 
         protected Container NotificationContent;
+        protected Container NotificationWrapper;
 
         public virtual bool Read { get; set; }
 
@@ -71,7 +72,7 @@ namespace osu.Game.Overlays.Notifications
                             RelativeSizeAxes = Axes.Both,
                             Colour = Color4.White,
                         },
-                        new Container
+                        NotificationWrapper = new Container
                         {
                             RelativeSizeAxes = Axes.X,
                             Padding = new MarginPadding(5),
@@ -97,7 +98,7 @@ namespace osu.Game.Overlays.Notifications
                                 }
                             }
                         },
-                        closeButton = new CloseButton
+                        NotificationCloseButton = new CloseButton
                         {
                             Alpha = 0,
                             Action = Close,
@@ -115,13 +116,13 @@ namespace osu.Game.Overlays.Notifications
 
         protected override bool OnHover(InputState state)
         {
-            closeButton.FadeIn(75);
+            NotificationCloseButton.FadeIn(75);
             return base.OnHover(state);
         }
 
         protected override void OnHoverLost(InputState state)
         {
-            closeButton.FadeOut(75);
+            NotificationCloseButton.FadeOut(75);
             base.OnHoverLost(state);
         }
 
@@ -153,7 +154,7 @@ namespace osu.Game.Overlays.Notifications
             Expire();
         }
 
-        private class CloseButton : ClickableContainer
+        protected class CloseButton : ClickableContainer
         {
             private Color4 hoverColour;
 

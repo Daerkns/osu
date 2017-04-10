@@ -34,6 +34,7 @@ namespace osu.Desktop.VisualTests.Tests
 
             AddStep(@"simple #1", sendNotification1);
             AddStep(@"simple #2", sendNotification2);
+            AddStep(@"response", sendResponse);
             AddStep(@"progress #1", sendProgress1);
             AddStep(@"progress #2", sendProgress2);
             AddStep(@"barrage", () => sendBarrage());
@@ -102,6 +103,19 @@ namespace osu.Desktop.VisualTests.Tests
             var n = new ProgressNotification { Text = @"Uploading to BSS..." };
             manager.Post(n);
             progressingNotifications.Add(n);
+        }
+
+        private void sendResponse()
+        {
+            manager.Post(new ResponseNotification(@"Response")
+            {
+            	Text = @"I'd just like to interject for moment.",
+                OnRespond = (text) =>
+                {
+                    manager.Post(new SimpleNotification { Text = text, });
+                    return true;
+                },
+            });
         }
 
         private void sendNotification2()
