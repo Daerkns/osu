@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Tests", "osu.Game.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Modes.Osu", "osu.Game.Modes.Osu\osu.Game.Modes.Osu.csproj", "{C92A607B-1FDD-4954-9F92-03FF547D9080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Modes.Catch", "osu.Game.Modes.Catch\osu.Game.Modes.Catch.csproj", "{58F6C80C-1253-4A0E-A465-B8C85EBEADF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Modes.Square", "osu.Game.Modes.Square\osu.Game.Modes.Square.csproj", "{58F6C80C-1253-4A0E-A465-B8C85EBEADF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu.Game.Modes.Taiko", "osu.Game.Modes.Taiko\osu.Game.Modes.Taiko.csproj", "{F167E17A-7DE6-4AF5-B920-A5112296C695}"
 EndProject

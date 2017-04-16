@@ -181,6 +181,10 @@
       <Project>{0d3fbf8a-7464-4cf7-8c90-3e7886df2d4d}</Project>
       <Name>osu.Game</Name>
     </ProjectReference>
+    <ProjectReference Include="..\osu.Game.Modes.Square\osu.Game.Modes.Square.csproj">
+      <Project>{58F6C80C-1253-4A0E-A465-B8C85EBEADF3}</Project>
+      <Name>osu.Game.Modes.Square</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomatedVisualTestGame.cs" />
@@ -215,6 +219,7 @@
     <Compile Include="Tests\TestCaseLeaderboard.cs" />
     <Compile Include="Beatmaps\TestWorkingBeatmap.cs" />
     <Compile Include="Tests\TestCaseBeatmapDetailArea.cs" />
+    <Compile Include="Tests\TestCaseSquarePlayfield.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
