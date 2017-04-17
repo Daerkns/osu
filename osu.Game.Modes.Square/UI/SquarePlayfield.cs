@@ -7,10 +7,12 @@ using osu.Game.Modes.UI;
 using osu.Game.Modes.Square.Judgements;
 using osu.Framework.Graphics.Containers;
 using OpenTK;
+using System.Linq;
+using osu.Game.Modes.Objects.Drawables;
 
 namespace osu.Game.Modes.Square.UI
 {
-    public class SquarePlayfield : Playfield<SquareHit, SquareJudgment>
+    public class SquarePlayfield : Playfield<SquareHitObject, SquareJudgment>
     {
         private const int columns = 4;
         private const int rows = 4;
@@ -50,6 +52,16 @@ namespace osu.Game.Modes.Square.UI
 
                 squares.Add(row);
             }
+        }
+
+        public override void Add(DrawableHitObject<SquareHitObject, SquareJudgment> h)
+        {
+            backgroundAt(h.HitObject.Column, h.HitObject.Row).Add(h);
+        }
+
+        private SquareBackground backgroundAt(int column, int row)
+        {
+            return (squares.Children.ElementAtOrDefault(row) as FillFlowContainer)?.Children.ElementAtOrDefault(column) as SquareBackground;
         }
     }
 }

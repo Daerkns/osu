@@ -15,6 +15,7 @@ using osu.Game.Modes.Objects;
 using osu.Game.Modes.Osu.Objects;
 using osu.Game.Modes.Osu.UI;
 using osu.Game.Modes.Taiko.UI;
+using osu.Game.Modes.Square.UI;
 using System.Collections.Generic;
 using osu.Desktop.VisualTests.Beatmaps;
 
@@ -79,12 +80,18 @@ namespace osu.Desktop.VisualTests.Tests
                             Anchor = Anchor.TopRight,
                             Origin = Anchor.TopRight
                         },
-                        new CatchHitRenderer(beatmap)
+                        new SquareHitRenderer(beatmap)
                         {
                             Scale = new Vector2(0.5f),
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft
                         },
+                        //new CatchHitRenderer(beatmap)
+                        //{
+                        //    Scale = new Vector2(0.5f),
+                        //    Anchor = Anchor.BottomLeft,
+                        //    Origin = Anchor.BottomLeft
+                        //},
                         new ManiaHitRenderer(beatmap)
                         {
                             Scale = new Vector2(0.5f),

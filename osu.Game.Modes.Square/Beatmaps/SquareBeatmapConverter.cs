@@ -4,16 +4,25 @@
 using osu.Game.Beatmaps;
 using osu.Game.Modes.Square.Objects;
 using System.Collections.Generic;
+using osu.Game.Modes.Objects;
+using osu.Framework.MathUtils;
 
 namespace osu.Game.Modes.Square.Beatmaps
 {
-    internal class SquareBeatmapConverter : IBeatmapConverter<SquareHit>
+    internal class SquareBeatmapConverter : IBeatmapConverter<SquareHitObject>
     {
-        public Beatmap<SquareHit> Convert(Beatmap original)
+        public Beatmap<SquareHitObject> Convert(Beatmap original)
         {
-            return new Beatmap<SquareHit>(original)
+            var objs = new List<SquareHitObject>();
+            foreach (HitObject obj in original.HitObjects)
             {
-                HitObjects = new List<SquareHit>() //todo: Convert HitObjects
+                //todo: Probably don't use random rows/columns
+                objs.Add(new SquareHitObject { StartTime = obj.StartTime, Column = RNG.Next(0, 4), Row = RNG.Next(0, 4) });
+            }
+
+            return new Beatmap<SquareHitObject>(original)
+            {
+                HitObjects = objs
             };
         }
     }

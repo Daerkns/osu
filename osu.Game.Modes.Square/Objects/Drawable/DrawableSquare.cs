@@ -4,36 +4,56 @@
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
-using osu.Framework.Graphics.Transforms;
+using osu.Game.Graphics;
 using OpenTK;
+using osu.Framework.Graphics.Transforms;
+using osu.Game.Modes.Objects.Drawables;
+using osu.Game.Modes.Square.Judgements;
 
 namespace osu.Game.Modes.Square.Objects.Drawable
 {
-    internal class DrawableSquare : Sprite
+    public class DrawableSquare : DrawableHitObject<SquareHitObject, SquareJudgment>
     {
-        private readonly SquareHit h;
-
-        public DrawableSquare(SquareHit h)
+        
+        public DrawableSquare(SquareHitObject hitObject)
+            : base(hitObject)
         {
-            this.h = h;
-
+            RelativeSizeAxes = Axes.Both;
+            Anchor = Anchor.Centre;
             Origin = Anchor.Centre;
-            Scale = new Vector2(0.1f);
-            RelativePositionAxes = Axes.Y;
-            Position = new Vector2(h.Position, -0.1f);
+            Scale = Vector2.Zero;
+            Alpha = 1f;
+            Masking = true;
+            CornerRadius = 5f;
+
+            Children = new Framework.Graphics.Drawable[]
+            {
+                new Box
+                {
+                    RelativeSizeAxes = Axes.Both,
+                },
+            };
         }
 
         [BackgroundDependencyLoader]
-        private void load(TextureStore textures)
+        private void load(OsuColour colours)
         {
-            Texture = textures.Get(@"Menu/logo");
+            Colour = colours.Blue;
 
-            const double duration = 0;
-
-            Transforms.Add(new TransformPosition { StartTime = h.StartTime - 200, EndTime = h.StartTime, StartValue = new Vector2(h.Position, -0.1f), EndValue = new Vector2(h.Position, 0.9f) });
-            Transforms.Add(new TransformAlpha { StartTime = h.StartTime + duration + 200, EndTime = h.StartTime + duration + 400, StartValue = 1, EndValue = 0 });
+            Transforms.Add(new TransformScale { StartTime = HitObject.StartTime - 400, EndTime = HitObject.StartTime, StartValue = Scale, EndValue = Vector2.One });
+            Transforms.Add(new TransformAlpha { StartTime = HitObject.StartTime - 400, EndTime = HitObject.StartTime - 200, StartValue = Alpha, EndValue = 1 });
+            Transforms.Add(new TransformAlpha { StartTime = HitObject.StartTime, EndTime = HitObject.StartTime + 100, StartValue = Alpha, EndValue = 0, Easing = EasingTypes.Out });
             Expire(true);
+        }
+
+        protected override SquareJudgment CreateJudgement()
+        {
+            return new SquareJudgment();
+        }
+
+        protected override void UpdateState(ArmedState state)
+        {
+            
         }
     }
 }

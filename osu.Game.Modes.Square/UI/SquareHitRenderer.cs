@@ -9,10 +9,11 @@ using osu.Game.Modes.Square.Scoring;
 using osu.Game.Modes.Objects.Drawables;
 using osu.Game.Modes.Scoring;
 using osu.Game.Modes.UI;
+using osu.Game.Modes.Square.Objects.Drawable;
 
 namespace osu.Game.Modes.Square.UI
 {
-    public class SquareHitRenderer : HitRenderer<SquareHit, SquareJudgment>
+    public class SquareHitRenderer : HitRenderer<SquareHitObject, SquareJudgment>
     {
         public SquareHitRenderer(WorkingBeatmap beatmap)
             : base(beatmap)
@@ -21,12 +22,15 @@ namespace osu.Game.Modes.Square.UI
 
         public override ScoreProcessor CreateScoreProcessor() => new SquareScoreProcessor(this);
 
-        protected override IBeatmapConverter<SquareHit> CreateBeatmapConverter() => new SquareBeatmapConverter();
+        protected override IBeatmapConverter<SquareHitObject> CreateBeatmapConverter() => new SquareBeatmapConverter();
 
-        protected override IBeatmapProcessor<SquareHit> CreateBeatmapProcessor() => new SquareBeatmapProcessor();
+        protected override IBeatmapProcessor<SquareHitObject> CreateBeatmapProcessor() => new SquareBeatmapProcessor();
 
-        protected override Playfield<SquareHit, SquareJudgment> CreatePlayfield() => new SquarePlayfield();
+        protected override Playfield<SquareHitObject, SquareJudgment> CreatePlayfield() => new SquarePlayfield();
 
-        protected override DrawableHitObject<SquareHit, SquareJudgment> GetVisualRepresentation(SquareHit h) => null;
+        protected override DrawableHitObject<SquareHitObject, SquareJudgment> GetVisualRepresentation(SquareHitObject h)
+        {
+            return new DrawableSquare(h);
+        }
     }
 }

@@ -7,6 +7,8 @@ using osu.Framework.Graphics.Sprites;
 using OpenTK;
 using OpenTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
+using osu.Game.Modes.Square.Objects.Drawable;
+using osu.Game.Modes.Square.Objects;
 
 namespace osu.Game.Modes.Square.UI
 {
@@ -32,7 +34,7 @@ namespace osu.Game.Modes.Square.UI
                 {
                     Size = new Vector2(size),
                     Colour = Color4.Black.Opacity(0.6f),
-                }
+                },
             };
         }
     }

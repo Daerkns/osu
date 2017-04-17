@@ -8,13 +8,13 @@ using osu.Game.Modes.UI;
 
 namespace osu.Game.Modes.Square.Scoring
 {
-    internal class SquareScoreProcessor : ScoreProcessor<SquareHit, SquareJudgment>
+    internal class SquareScoreProcessor : ScoreProcessor<SquareHitObject, SquareJudgment>
     {
         public SquareScoreProcessor()
         {
         }
 
-        public SquareScoreProcessor(HitRenderer<SquareHit, SquareJudgment> hitRenderer)
+        public SquareScoreProcessor(HitRenderer<SquareHitObject, SquareJudgment> hitRenderer)
             : base(hitRenderer)
         {
         }

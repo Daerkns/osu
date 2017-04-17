@@ -52,7 +52,7 @@
     <Compile Include="SquareDifficultyCalculator.cs" />
     <Compile Include="Scoring\SquareScoreProcessor.cs" />
     <Compile Include="Judgements\SquareJudgment.cs" />
-    <Compile Include="Objects\SquareHit.cs" />
+    <Compile Include="Objects\SquareHitObject.cs" />
     <Compile Include="Objects\Drawable\DrawableSquare.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\SquareHitRenderer.cs" />
