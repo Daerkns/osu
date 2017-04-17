@@ -7,8 +7,6 @@ using osu.Framework.Graphics.Sprites;
 using OpenTK;
 using OpenTK.Graphics;
 using osu.Framework.Extensions.Color4Extensions;
-using osu.Game.Modes.Square.Objects.Drawable;
-using osu.Game.Modes.Square.Objects;
 
 namespace osu.Game.Modes.Square.UI
 {

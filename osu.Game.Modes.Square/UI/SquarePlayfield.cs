@@ -9,14 +9,17 @@ using osu.Framework.Graphics.Containers;
 using OpenTK;
 using System.Linq;
 using osu.Game.Modes.Objects.Drawables;
+using osu.Game.Modes.Square.Objects.Drawables;
+using System;
 
 namespace osu.Game.Modes.Square.UI
 {
-    public class SquarePlayfield : Playfield<SquareHitObject, SquareJudgment>
+    public class SquarePlayfield : Playfield<SquareHitObject, SquareJudgement>
     {
         private const int columns = 4;
         private const int rows = 4;
         private readonly Vector2 square_spacing = new Vector2(10f);
+        private readonly Vector2 judgement_offset = new Vector2(0f, -5f);
 
         private FillFlowContainer squares;
 
@@ -54,9 +57,22 @@ namespace osu.Game.Modes.Square.UI
             }
         }
 
-        public override void Add(DrawableHitObject<SquareHitObject, SquareJudgment> h)
+        public override void Add(DrawableHitObject<SquareHitObject, SquareJudgement> h)
         {
-            backgroundAt(h.HitObject.Column, h.HitObject.Row).Add(h);
+            backgroundAt(h.HitObject.Column, h.HitObject.Row)?.Add(h);
+        }
+
+        public override void OnJudgement(DrawableHitObject<SquareHitObject, SquareJudgement> judgedObject)
+        {
+            DrawableSquareJudgement explosion = new DrawableSquareJudgement(judgedObject.Judgement)
+        	{
+        		Origin = Anchor.Centre,
+                Anchor = Anchor.Centre,
+                Position = judgement_offset,
+        	};
+
+            Console.WriteLine($"{judgedObject.HitObject.Column}x{judgedObject.HitObject.Row} - {judgedObject.Judgement.ResultString}");
+            backgroundAt(judgedObject.HitObject.Column, judgedObject.HitObject.Row).Add(explosion);
         }
 
         private SquareBackground backgroundAt(int column, int row)

@@ -51,15 +51,17 @@
     <Compile Include="Beatmaps\SquareBeatmapProcessor.cs" />
     <Compile Include="SquareDifficultyCalculator.cs" />
     <Compile Include="Scoring\SquareScoreProcessor.cs" />
-    <Compile Include="Judgements\SquareJudgment.cs" />
+    <Compile Include="Judgements\SquareJudgement.cs" />
     <Compile Include="Objects\SquareHitObject.cs" />
-    <Compile Include="Objects\Drawable\DrawableSquare.cs" />
+    <Compile Include="Objects\Drawable\DrawableMarker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\SquareHitRenderer.cs" />
     <Compile Include="UI\SquarePlayfield.cs" />
     <Compile Include="SquareRuleset.cs" />
     <Compile Include="Mods\SquareMod.cs" />
     <Compile Include="UI\SquareBackground.cs" />
+    <Compile Include="Objects\Drawable\DrawableSquareJudgement.cs" />
+    <Compile Include="SquareAutoReplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\osu.licenseheader">

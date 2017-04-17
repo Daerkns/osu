@@ -13,7 +13,7 @@ using osu.Game.Modes.Square.Objects.Drawable;
 
 namespace osu.Game.Modes.Square.UI
 {
-    public class SquareHitRenderer : HitRenderer<SquareHitObject, SquareJudgment>
+    public class SquareHitRenderer : HitRenderer<SquareHitObject, SquareJudgement>
     {
         public SquareHitRenderer(WorkingBeatmap beatmap)
             : base(beatmap)
@@ -26,11 +26,11 @@ namespace osu.Game.Modes.Square.UI
 
         protected override IBeatmapProcessor<SquareHitObject> CreateBeatmapProcessor() => new SquareBeatmapProcessor();
 
-        protected override Playfield<SquareHitObject, SquareJudgment> CreatePlayfield() => new SquarePlayfield();
+        protected override Playfield<SquareHitObject, SquareJudgement> CreatePlayfield() => new SquarePlayfield();
 
-        protected override DrawableHitObject<SquareHitObject, SquareJudgment> GetVisualRepresentation(SquareHitObject h)
+        protected override DrawableHitObject<SquareHitObject, SquareJudgement> GetVisualRepresentation(SquareHitObject h)
         {
-            return new DrawableSquare(h);
+            return new DrawableMarker(h);
         }
     }
 }

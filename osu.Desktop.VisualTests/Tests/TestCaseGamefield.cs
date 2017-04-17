@@ -68,21 +68,21 @@ namespace osu.Desktop.VisualTests.Tests
                     Clock = new FramedClock(),
                     Children = new Drawable[]
                     {
-                        new OsuHitRenderer(beatmap)
-                        {
-                            Scale = new Vector2(0.5f),
-                            Anchor = Anchor.TopLeft,
-                            Origin = Anchor.TopLeft
-                        },
-                        new TaikoHitRenderer(beatmap)
-                        {
-                            Scale = new Vector2(0.5f),
-                            Anchor = Anchor.TopRight,
-                            Origin = Anchor.TopRight
-                        },
+                        //new OsuHitRenderer(beatmap)
+                        //{
+                        //    Scale = new Vector2(0.5f),
+                        //    Anchor = Anchor.TopLeft,
+                        //    Origin = Anchor.TopLeft
+                        //},
+                        //new TaikoHitRenderer(beatmap)
+                        //{
+                        //    Scale = new Vector2(0.5f),
+                        //    Anchor = Anchor.TopRight,
+                        //    Origin = Anchor.TopRight
+                        //},
                         new SquareHitRenderer(beatmap)
                         {
-                            Scale = new Vector2(0.5f),
+                            Scale = new Vector2(1f),
                             Anchor = Anchor.BottomLeft,
                             Origin = Anchor.BottomLeft
                         },
@@ -92,12 +92,12 @@ namespace osu.Desktop.VisualTests.Tests
                         //    Anchor = Anchor.BottomLeft,
                         //    Origin = Anchor.BottomLeft
                         //},
-                        new ManiaHitRenderer(beatmap)
-                        {
-                            Scale = new Vector2(0.5f),
-                            Anchor = Anchor.BottomRight,
-                            Origin = Anchor.BottomRight
-                        }
+                        //new ManiaHitRenderer(beatmap)
+                        //{
+                        //    Scale = new Vector2(0.5f),
+                        //    Anchor = Anchor.BottomRight,
+                        //    Origin = Anchor.BottomRight
+                        //}
                     }
                 }
             });

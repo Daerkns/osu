@@ -109,6 +109,7 @@ namespace osu.Game.Screens.Play
                 sourceClock.Reset();
             });
 
+            // Always force square for testing
             ruleset = Ruleset.GetRuleset(Beatmap.PlayMode);
             HitRenderer = ruleset.CreateHitRendererWith(Beatmap);
 

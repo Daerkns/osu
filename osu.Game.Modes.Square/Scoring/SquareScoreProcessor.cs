@@ -8,18 +8,18 @@ using osu.Game.Modes.UI;
 
 namespace osu.Game.Modes.Square.Scoring
 {
-    internal class SquareScoreProcessor : ScoreProcessor<SquareHitObject, SquareJudgment>
+    internal class SquareScoreProcessor : ScoreProcessor<SquareHitObject, SquareJudgement>
     {
         public SquareScoreProcessor()
         {
         }
 
-        public SquareScoreProcessor(HitRenderer<SquareHitObject, SquareJudgment> hitRenderer)
+        public SquareScoreProcessor(HitRenderer<SquareHitObject, SquareJudgement> hitRenderer)
             : base(hitRenderer)
         {
         }
 
-        protected override void OnNewJudgement(SquareJudgment judgement)
+        protected override void OnNewJudgement(SquareJudgement judgement)
         {
         }
     }
