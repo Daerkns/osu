@@ -30,8 +30,8 @@ namespace osu.Game.Screens.Select.Details
 
                 length.Value = TimeSpan.FromMilliseconds(Beatmap.OnlineInfo.Length).ToString(@"m\:ss");
                 bpm.Value = Beatmap.OnlineInfo.BPM.ToString(@"0.##");
-                circleCount.Value = beatmap.OnlineInfo.CircleCount.ToString();
-                sliderCount.Value = beatmap.OnlineInfo.SliderCount.ToString();
+                circleCount.Value = string.Format(@"{0:n0}", beatmap.OnlineInfo.CircleCount);
+                sliderCount.Value = string.Format(@"{0:n0}", beatmap.OnlineInfo.SliderCount);
             }
         }
 

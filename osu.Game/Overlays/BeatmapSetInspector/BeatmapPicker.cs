@@ -27,6 +27,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         private const float difficulty_height = 54;
 
         private readonly OsuSpriteText difficultyName, starDifficulty;
+
         public readonly Bindable<BeatmapInfo> SelectedBeatmap;
 
         public BeatmapPicker(BeatmapSetInfo set)
@@ -38,7 +39,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             FillFlowContainer tiles;
             Children = new Drawable[]
             {
-                tiles = new TilesFillFlowContainer //todo: offset to the left by tile_icon_padding
+                tiles = new TilesFillFlowContainer
                 {
                     AutoSizeAxes = Axes.X,
                     Height = difficulty_height,
@@ -168,7 +169,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                 };
 
                 bindable.ValueChanged += bindable_ValueChanged;
-                Action = () => bindable.Value = this.beatmap;
+                Action = () => bindable.Value = beatmap;
             }
 
             protected override bool OnHover(InputState state)
