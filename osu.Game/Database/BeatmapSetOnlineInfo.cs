@@ -1,7 +1,9 @@
 ﻿// Copyright (c) 2007-2017 ppy Pty Ltd <contact@ppy.sh>.
 // Licensed under the MIT Licence - https://raw.githubusercontent.com/ppy/osu/master/LICENCE
 
+using System;
 using Newtonsoft.Json;
+using osu.Game.Users;
 
 namespace osu.Game.Database
 {
@@ -10,6 +12,26 @@ namespace osu.Game.Database
     /// </summary>
     public class BeatmapSetOnlineInfo
     {
+        /// <summary>
+        /// The author of this beatmap set.
+        /// </summary>
+        public User Author { get; set; }
+
+        /// <summary>
+        /// The date this beatmap set was submitted.
+        /// </summary>
+        public DateTimeOffset Submitted { get; set; }
+
+        /// <summary>
+        /// The date this beatmap set was ranked.
+        /// </summary>
+        public DateTimeOffset Ranked { get; set; }
+
+        /// <summary>
+        /// Whether or not this beatmap set has a background video.
+        /// </summary>
+        public bool HasVideo { get; set; }
+
         /// <summary>
         /// The different sizes of cover art for this beatmap set.
         /// </summary>

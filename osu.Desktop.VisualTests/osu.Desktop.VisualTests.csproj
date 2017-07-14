@@ -232,6 +232,7 @@
     <Compile Include="Tests\TestCaseSocial.cs" />
     <Compile Include="Tests\TestCaseBreadcrumbs.cs" />
     <Compile Include="Tests\TestCaseRoomInspector.cs" />
+    <Compile Include="Tests\TestCaseBeatmapSetInspector.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />
