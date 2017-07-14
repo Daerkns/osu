@@ -26,6 +26,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         private const float header_spacing = 10;
 
         private readonly Box modeBackground;
+        protected readonly BeatmapPicker picker;
         private readonly FavouriteButton favourite;
 
         public readonly Bindable<BeatmapInfo> SelectedBeatmap = new Bindable<BeatmapInfo>();
@@ -43,7 +44,6 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             };
 
             FillFlowContainer buttons;
-            BeatmapPicker picker;
             BeatmapDetails details;
             Children = new Drawable[]
             {
@@ -189,6 +189,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             base.LoadComplete();
 
             //trigger an initial display since there's always a beatmap selected
+            picker.SelectedBeatmap.TriggerChange();
             SelectedBeatmap.TriggerChange();
         }
 
