@@ -29,7 +29,8 @@ namespace osu.Desktop.VisualTests.Tests
                     Title = @"Soumatou Labyrinth",
                     Artist = @"Yunomi with Momobako&miko",
                     Author = @"komasy",
-                    Source = @"",
+                    Source = @"This doesn't actually have a source, but hey, I'm not judging",
+                    Tags = @"mmbk.com yuzu__rinrin charlotte",
                 },
                 OnlineInfo = new BeatmapSetOnlineInfo
                 {
@@ -62,10 +63,6 @@ namespace osu.Desktop.VisualTests.Tests
                             DrainRate = 7,
                             OverallDifficulty = 3,
                             ApproachRate = 10,
-                        },
-                        Metadata = new BeatmapMetadata
-                        {
-                            Tags = @"mmbk.com yuzu__rinrin charlotte",
                         },
                         Metrics = new BeatmapMetrics
                         {

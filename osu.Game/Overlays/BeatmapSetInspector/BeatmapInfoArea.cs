@@ -10,7 +10,6 @@ using osu.Game.Database;
 using osu.Game.Graphics;
 using OpenTK;
 using osu.Game.Graphics.Sprites;
-using System.Linq;
 using osu.Game.Screens.Select.Details;
 
 namespace osu.Game.Overlays.BeatmapSetInspector
@@ -20,10 +19,10 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         private const float tags_width = 175;
         private const float spacing = 10;
 
-        private readonly Section description;
+        private readonly ScrollContainer description;
+        private readonly TextFlowContainer tags, source;
         private readonly Box successRateBg;
         private readonly SuccessRate successRate;
-        private readonly TextFlowContainer tags;
 
         private BeatmapInfo beatmap;
         public BeatmapInfo Beatmap
@@ -43,6 +42,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             RelativeSizeAxes = Axes.X;
             Height = 220;
 
+            Section sourceSection;
             Children = new Drawable[]
             {
                 new Box
@@ -57,18 +57,49 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                     Spacing = new Vector2(spacing),
                     Children = new Drawable[]
                     {
-                        description = new Section("Description")
+                        description = new ScrollContainer
                         {
                             RelativeSizeAxes = Axes.Y,
+                            ScrollbarVisible = false,
+                            Child = new Section("Description")
+                            {
+                                Child = tags = new TextFlowContainer
+                                {
+                                    RelativeSizeAxes = Axes.X,
+                                    AutoSizeAxes = Axes.Y,
+                                },
+                            },
                         },
-                        new Section("Tags")
+                        new ScrollContainer
                         {
                             Width = tags_width,
                             RelativeSizeAxes = Axes.Y,
-                            Child = tags = new TextFlowContainer
+                            ScrollbarVisible = false,
+                            Child = new FillFlowContainer
                             {
                                 RelativeSizeAxes = Axes.X,
                                 AutoSizeAxes = Axes.Y,
+                                Spacing = new Vector2(20f),
+                                Children = new[]
+                                {
+                                    sourceSection = new Section("Source")
+                                    {
+                                        Alpha = string.IsNullOrEmpty(set.Metadata.Source) ? 0f : 1f,
+                                        Child = source = new TextFlowContainer
+                                        {
+                                            RelativeSizeAxes = Axes.X,
+                                            AutoSizeAxes = Axes.Y,
+                                        },
+                                    },
+                                    new Section("Tags")
+                                    {
+                                        Child = tags = new TextFlowContainer
+                                        {
+                                            RelativeSizeAxes = Axes.X,
+                                            AutoSizeAxes = Axes.Y,
+                                        },
+                                    },
+                                },
                             },
                         },
                         new Container
@@ -92,7 +123,8 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                 },
             };
 
-            tags.AddText(set.Beatmaps.FirstOrDefault()?.Metadata.Tags ?? string.Empty, s => s.TextSize = 13); //todo: change tags for selected difficulty
+            source.AddText(set.Metadata.Source ?? string.Empty, s => s.TextSize = 13);
+            tags.AddText(set.Metadata.Tags ?? string.Empty, s => s.TextSize = 13);
         }
 
         [BackgroundDependencyLoader]
@@ -100,6 +132,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         {
             successRateBg.Colour = colours.GrayE;
             tags.Colour = colours.BlueDark;
+            source.Colour = colours.Gray5;
         }
 
         protected override void UpdateAfterChildren()
@@ -118,39 +151,34 @@ namespace osu.Game.Overlays.BeatmapSetInspector
 
             public Section(string title)
             {
-                AddInternal(new ScrollContainer
+                RelativeSizeAxes = Axes.X;
+                AutoSizeAxes = Axes.Y;
+
+                InternalChild = new FillFlowContainer
                 {
-                    RelativeSizeAxes = Axes.Both,
-                    ScrollbarVisible = false,
-                    Children = new[]
+                    RelativeSizeAxes = Axes.X,
+                    AutoSizeAxes = Axes.Y,
+                    Spacing = new Vector2(5f),
+                    Children = new Drawable[]
                     {
-                        new FillFlowContainer
+                        new Container
                         {
                             RelativeSizeAxes = Axes.X,
                             AutoSizeAxes = Axes.Y,
-                            Spacing = new Vector2(5f),
-                            Children = new Drawable[]
+                            Child = this.title = new OsuSpriteText
                             {
-                                new Container
-                                {
-                                    RelativeSizeAxes = Axes.X,
-                                    AutoSizeAxes = Axes.Y,
-                                    Child = this.title = new OsuSpriteText
-                                    {
-                                        Text = title,
-                                        Font = @"Exo2.0-Bold",
-                                        TextSize = 14,
-                                    },
-                                },
-                                content = new Container
-                                {
-                                    RelativeSizeAxes = Axes.X,
-                                    AutoSizeAxes = Axes.Y,
-                                },
+                                Text = title,
+                                Font = @"Exo2.0-Bold",
+                                TextSize = 14,
                             },
                         },
+                        content = new Container
+                        {
+                            RelativeSizeAxes = Axes.X,
+                            AutoSizeAxes = Axes.Y,
+                        },
                     },
-                });
+                };
             }
 
             [BackgroundDependencyLoader]
