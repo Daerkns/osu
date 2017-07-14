@@ -14,7 +14,6 @@ using osu.Game.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
 using OpenTK;
 using osu.Game.Graphics.Sprites;
-using osu.Framework.Input;
 using osu.Framework.Graphics.Textures;
 using osu.Game.Users;
 using osu.Game.Graphics.Backgrounds;
@@ -29,6 +28,8 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         private readonly Box modeBackground;
         private readonly FavouriteButton favourite;
 
+        public readonly Bindable<BeatmapInfo> SelectedBeatmap = new Bindable<BeatmapInfo>();
+
         public BeatmapHeader(BeatmapSetInfo set)
         {
             RelativeSizeAxes = Axes.X;
@@ -42,6 +43,8 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             };
 
             FillFlowContainer buttons;
+            BeatmapPicker picker;
+            BeatmapDetails details;
             Children = new Drawable[]
             {
                 new Container
@@ -141,7 +144,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                                                     Font = @"Exo2.0-BoldItalic",
                                                     Margin = new MarginPadding { Left = BeatmapPicker.TILE_ICON_PADDING },
                                                 },
-                                                new BeatmapPicker(set)
+                                                picker = new BeatmapPicker(set)
                                                 {
                                                     Anchor = Anchor.BottomLeft,
                                                     Origin = Anchor.BottomLeft,
@@ -150,38 +153,16 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                                         },
                                     },
                                 },
-                                new FillFlowContainer
-                                {
-                                    Anchor = Anchor.BottomRight,
-                                    Origin = Anchor.BottomRight,
-                                    Width = BeatmapSetInspectorOverlay.DETAILS_WIDTH,
-                                    AutoSizeAxes = Axes.Y,
-                                    Spacing = new Vector2(1f),
-                                    Children = new Drawable[]
-                                    {
-                                        new PlayButton(),
-                                        new DetailSection
-                                        {
-                                            Height = 35,
-                                        },
-                                        new DetailSection
-                                        {
-                                            Height = 110,
-                                        },
-                                        new DetailSection
-                                        {
-                                            Height = 105,
-                                        },
-                                    },
-                                },
+                                details = new BeatmapDetails(set),
                             },
                         },
                     },
                 },
             };
 
-            //todo: use proper initial value
-            favourite.Favourited.Value = false;
+            favourite.Favourited.Value = false; //todo: use proper initial value
+            SelectedBeatmap.BindTo(picker.SelectedBeatmap);
+            SelectedBeatmap.ValueChanged += b => details.Beatmap = b;
 
             if (set.OnlineInfo.HasVideo)
             {
@@ -203,6 +184,14 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             modeBackground.Colour = colours.Gray3;
         }
 
+        protected override void LoadComplete()
+        {
+            base.LoadComplete();
+
+            //trigger an initial display since there's always a beatmap selected
+            SelectedBeatmap.TriggerChange();
+        }
+
         //todo: remove me
         private class BeatmapSetCover : Sprite
         {
@@ -219,60 +208,6 @@ namespace osu.Game.Overlays.BeatmapSetInspector
 
                 if (resource != null)
                     Texture = textures.Get(resource);
-            }
-        }
-
-        private class PlayButton : OsuClickableContainer
-        {
-            private readonly Box bg;
-
-            public PlayButton()
-            {
-                RelativeSizeAxes = Axes.X;
-                Height = 42;
-
-                Children = new Drawable[]
-                {
-                    bg = new Box
-                    {
-                        RelativeSizeAxes = Axes.Both,
-                        Colour = Color4.Black.Opacity(0.25f),
-                    },
-                    new TextAwesome
-                    {
-                        Anchor = Anchor.Centre,
-                        Origin = Anchor.Centre,
-                        Icon = FontAwesome.fa_play,
-                        TextSize = 18,
-                        Shadow = false,
-                        UseFullGlyphHeight = false,
-                    },
-                };
-            }
-
-            protected override bool OnHover(InputState state)
-            {
-                bg.FadeColour(Color4.Black.Opacity(0.5f), 100);
-                return base.OnHover(state);
-            }
-
-            protected override void OnHoverLost(InputState state)
-            {
-                bg.FadeColour(Color4.Black.Opacity(0.25f), 100);
-            }
-        }
-
-        private class DetailSection : Container
-        {
-            public DetailSection()
-            {
-                RelativeSizeAxes = Axes.X;
-
-                Child = new Box
-                {
-                    RelativeSizeAxes = Axes.Both,
-                    Colour = Color4.Black.Opacity(0.5f),
-                };
             }
         }
 

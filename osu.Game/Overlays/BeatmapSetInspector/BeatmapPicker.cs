@@ -105,8 +105,6 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                     starDifficulty.FadeIn(100);
                 },
             });
-
-            SelectedBeatmap.TriggerChange();
         }
 
         [BackgroundDependencyLoader]

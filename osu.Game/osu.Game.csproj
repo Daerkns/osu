@@ -496,6 +496,11 @@
     <Compile Include="Overlays\BeatmapSetInspector\BeatmapHeader.cs" />
     <Compile Include="Overlays\BeatmapSetInspector\BeatmapInfoArea.cs" />
     <Compile Include="Overlays\BeatmapSetInspector\BeatmapPicker.cs" />
+    <Compile Include="Overlays\BeatmapSetInspector\BeatmapDetails.cs" />
+    <Compile Include="Screens\Select\Details\BasicStats.cs" />
+    <Compile Include="Screens\Select\Details\AdvancedStats.cs" />
+    <Compile Include="Screens\Select\Details\SuccessRate.cs" />
+    <Compile Include="Screens\Select\Details\UserRatings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\osu-framework\osu.Framework\osu.Framework.csproj">
@@ -518,6 +523,10 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Overlays\BeatmapSetInspector\" />
+    <Folder Include="Screens\Select\Details\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

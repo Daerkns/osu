@@ -11,6 +11,7 @@ using osu.Game.Graphics;
 using OpenTK;
 using osu.Game.Graphics.Sprites;
 using System.Linq;
+using osu.Game.Screens.Select.Details;
 
 namespace osu.Game.Overlays.BeatmapSetInspector
 {
@@ -21,7 +22,21 @@ namespace osu.Game.Overlays.BeatmapSetInspector
 
         private readonly Section description;
         private readonly Box successRateBg;
+        private readonly SuccessRate successRate;
         private readonly TextFlowContainer tags;
+
+        private BeatmapInfo beatmap;
+        public BeatmapInfo Beatmap
+        {
+            get { return beatmap; }
+            set
+            {
+                if (value == beatmap) return;
+                beatmap = value;
+
+                successRate.Beatmap = Beatmap;
+            }
+        }
 
         public BeatmapInfoArea(BeatmapSetInfo set)
         {
@@ -65,6 +80,11 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                                 successRateBg = new Box
                                 {
                                     RelativeSizeAxes = Axes.Both,
+                                },
+                                successRate = new SuccessRate
+                                {
+                                    RelativeSizeAxes = Axes.Both,
+                                    Padding = new MarginPadding { Top = 20, Horizontal = 15 },
                                 },
                             },
                         },

@@ -2,14 +2,11 @@
 // Licensed under the MIT Licence - https://raw.githubusercontent.com/ppy/osu/master/LICENCE
 
 using OpenTK.Graphics;
-using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Game.Database;
 using osu.Game.Graphics.Containers;
-using osu.Framework.Graphics.Sprites;
-using osu.Framework.Graphics.Textures;
 using osu.Game.Overlays.BeatmapSetInspector;
 
 namespace osu.Game.Overlays
@@ -34,6 +31,8 @@ namespace osu.Game.Overlays
 
             //todo: wave colours
 
+            BeatmapHeader header;
+            BeatmapInfoArea info;
             Children = new Drawable[]
             {
                 new ReverseChildIDFillFlowContainer<Drawable>
@@ -41,11 +40,13 @@ namespace osu.Game.Overlays
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
-                        new BeatmapHeader(set),
-                        new BeatmapInfoArea(set),
+                        header = new BeatmapHeader(set),
+                        info = new BeatmapInfoArea(set),
                     },
                 },
             };
+
+            header.SelectedBeatmap.ValueChanged += b => info.Beatmap = b;
         }
 
         protected override void PopIn()

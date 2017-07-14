@@ -56,9 +56,30 @@ namespace osu.Desktop.VisualTests.Tests
                         Version = @"yzrin's Kantan",
                         Ruleset = ruleset,
                         StarDifficulty = 1.40f,
+                        Difficulty = new BeatmapDifficulty
+                        {
+                            CircleSize = 2,
+                            DrainRate = 7,
+                            OverallDifficulty = 3,
+                            ApproachRate = 10,
+                        },
                         Metadata = new BeatmapMetadata
                         {
                             Tags = @"mmbk.com yuzu__rinrin charlotte",
+                        },
+                        Metrics = new BeatmapMetrics
+                        {
+                            Ratings = new[] { 0, 0, 0, 0, 0, 0, 2, 2, 6, 25 },
+                            Fails = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Retries = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 },
+                        },
+                        OnlineInfo = new BeatmapOnlineInfo
+                        {
+                            Length = 193000,
+                            BPM = 160,
+                            CircleCount = 262,
+                            SliderCount = 0,
+                            SuccessRate = 24,
                         },
                     },
                     new BeatmapInfo
@@ -66,24 +87,108 @@ namespace osu.Desktop.VisualTests.Tests
                         Version = @"Futsuu",
                         Ruleset = ruleset,
                         StarDifficulty = 2.23f,
+                        Difficulty = new BeatmapDifficulty
+                        {
+                            CircleSize = 2,
+                            DrainRate = 6,
+                            OverallDifficulty = 4,
+                            ApproachRate = 10,
+                        },
+                        Metrics = new BeatmapMetrics
+                        {
+                            Ratings = new[] { 0, 0, 0, 0, 0, 0, 2, 2, 6, 25 },
+                            Fails = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Retries = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 },
+                        },
+                        OnlineInfo = new BeatmapOnlineInfo
+                        {
+                            Length = 193000,
+                            BPM = 160,
+                            CircleCount = 464,
+                            SliderCount = 0,
+                            SuccessRate = 16,
+                        },
                     },
                     new BeatmapInfo
                     {
                         Version = @"Muzukashii",
                         Ruleset = ruleset,
                         StarDifficulty = 3.19f,
+                        Difficulty = new BeatmapDifficulty
+                        {
+                            CircleSize = 2,
+                            DrainRate = 6,
+                            OverallDifficulty = 5,
+                            ApproachRate = 10,
+                        },
+                        Metrics = new BeatmapMetrics
+                        {
+                            Ratings = new[] { 0, 0, 0, 0, 0, 0, 2, 2, 6, 25 },
+                            Fails = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Retries = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 },
+                        },
+                        OnlineInfo = new BeatmapOnlineInfo
+                        {
+                            Length = 193000,
+                            BPM = 160,
+                            CircleCount = 712,
+                            SliderCount = 0,
+                            SuccessRate = 16,
+                        },
                     },
                     new BeatmapInfo
                     {
                         Version = @"Charlotte's Oni",
                         Ruleset = ruleset,
                         StarDifficulty = 3.97f,
+                        Difficulty = new BeatmapDifficulty
+                        {
+                            CircleSize = 5,
+                            DrainRate = 6,
+                            OverallDifficulty = 5.5f,
+                            ApproachRate = 10,
+                        },
+                        Metrics = new BeatmapMetrics
+                        {
+                            Ratings = new[] { 0, 0, 0, 0, 0, 0, 2, 2, 6, 25 },
+                            Fails = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Retries = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 },
+                        },
+                        OnlineInfo = new BeatmapOnlineInfo
+                        {
+                            Length = 193000,
+                            BPM = 160,
+                            CircleCount = 943,
+                            SliderCount = 0,
+                            SuccessRate = 15,
+                        },
                     },
                     new BeatmapInfo
                     {
                         Version = @"Labyrinth Oni",
                         Ruleset = ruleset,
                         StarDifficulty = 5.08f,
+                        Difficulty = new BeatmapDifficulty
+                        {
+                            CircleSize = 5,
+                            DrainRate = 5,
+                            OverallDifficulty = 6,
+                            ApproachRate = 10,
+                        },
+                        Metrics = new BeatmapMetrics
+                        {
+                            Ratings = new[] { 0, 0, 0, 0, 0, 0, 2, 2, 6, 25 },
+                            Fails = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Retries = new[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 },
+                        },
+                        OnlineInfo = new BeatmapOnlineInfo
+                        {
+                            Length = 193000,
+                            BPM = 160,
+                            CircleCount = 1068,
+                            SliderCount = 0,
+                            SuccessRate = 17,
+                        },
                     },
                 },
             };
