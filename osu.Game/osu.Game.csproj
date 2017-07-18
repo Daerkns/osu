@@ -524,6 +524,7 @@
     <Compile Include="Screens\Multiplayer\ParticipantInfo.cs" />
     <Compile Include="Screens\Multiplayer\ModeTypeInfo.cs" />
     <Compile Include="Beatmaps\Drawables\BeatmapSetCover.cs" />
+    <Compile Include="Screens\Select\Details\FailRetryGraph.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\osu-framework\osu.Framework\osu.Framework.csproj">

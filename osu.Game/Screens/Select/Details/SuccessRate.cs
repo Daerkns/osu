@@ -18,8 +18,8 @@ namespace osu.Game.Screens.Select.Details
         private readonly FillFlowContainer header;
         private readonly OsuSpriteText successRateLabel, successPercent, graphLabel;
         private readonly Bar successRate;
-        private readonly Container percentContainer, graphContainer;
-        private readonly BarGraph retryGraph, failGraph;
+        private readonly Container percentContainer;
+        private readonly FailRetryGraph graph;
 
         private BeatmapInfo beatmap;
         public BeatmapInfo Beatmap
@@ -33,15 +33,7 @@ namespace osu.Game.Screens.Select.Details
                 successPercent.Text = $"{beatmap.OnlineInfo.SuccessRate}%";
                 successRate.Length = (float)beatmap.OnlineInfo.SuccessRate / 100f;
 
-                var retries = Beatmap.Metrics.Retries;
-                var fails = Beatmap.Metrics.Fails;
-
-                float maxValue = fails.Zip(retries, (fail, retry) => fail + retry).Max();
-                failGraph.MaxValue = maxValue;
-                retryGraph.MaxValue = maxValue;
-
-                failGraph.Values = fails.Select(f => (float)f);
-                retryGraph.Values = retries.Zip(fails, (retry, fail) => retry + MathHelper.Clamp(fail, 0, maxValue));
+                graph.Metrics = Beatmap.Metrics;
             }
         }
 
@@ -90,22 +82,11 @@ namespace osu.Game.Screens.Select.Details
                         },
                     },
                 },
-                graphContainer = new Container
+                graph = new FailRetryGraph
                 {
                     Anchor = Anchor.BottomLeft,
                     Origin = Anchor.BottomLeft,
                     RelativeSizeAxes = Axes.Both,
-                    Children = new[]
-                    {
-                        retryGraph = new BarGraph
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                        },
-                        failGraph = new BarGraph
-                        {
-                            RelativeSizeAxes = Axes.Both,
-                        },
-                    },
                 },
             };
         }
@@ -116,15 +97,13 @@ namespace osu.Game.Screens.Select.Details
             successRateLabel.Colour = successPercent.Colour = graphLabel.Colour = colours.Gray5;
             successRate.AccentColour = colours.Green;
             successRate.BackgroundColour = colours.GrayD;
-            retryGraph.Colour = colours.Yellow;
-            failGraph.Colour = colours.YellowDarker;
         }
 
         protected override void UpdateAfterChildren()
         {
             base.UpdateAfterChildren();
 
-            graphContainer.Padding = new MarginPadding { Top = header.DrawHeight };
+            graph.Padding = new MarginPadding { Top = header.DrawHeight };
         }
 
         protected override void Update()

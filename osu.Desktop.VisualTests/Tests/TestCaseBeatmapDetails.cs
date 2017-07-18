@@ -6,6 +6,7 @@ using osu.Framework.Testing;
 using osu.Game.Database;
 using osu.Game.Screens.Select;
 using System.Linq;
+using OpenTK;
 
 namespace osu.Desktop.VisualTests.Tests
 {
@@ -19,24 +20,25 @@ namespace osu.Desktop.VisualTests.Tests
         {
             Add(details = new BeatmapDetails
             {
-                RelativeSizeAxes = Axes.Both,
-                Padding = new MarginPadding(150),
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                Size = new Vector2(551f, 343f),
                 Beatmap = new BeatmapInfo
                 {
-                    Version = "VisualTest",
+                    Version = "Labyrinth Oni",
                     Metadata = new BeatmapMetadata
                     {
-                        Source = "Some guy",
-                        Tags = "beatmap metadata example with a very very long list of tags and not much creativity",
+                        Source = "",
+                        Tags = "mmbk.com yuzu__rinrin charlotte",
                     },
                     Difficulty = new BeatmapDifficulty
                     {
-                        CircleSize = 7,
-                        ApproachRate = 3.5f,
-                        OverallDifficulty = 5.7f,
-                        DrainRate = 1,
+                        CircleSize = 5,
+                        DrainRate = 5,
+                        OverallDifficulty = 6,
+                        ApproachRate = 10,
                     },
-                    StarDifficulty = 5.3f,
+                    StarDifficulty = 5.08f,
                     Metrics = new BeatmapMetrics
                     {
                         Ratings = Enumerable.Range(0, 10),
