@@ -18,6 +18,7 @@ using osu.Framework.Graphics.Textures;
 using osu.Game.Users;
 using osu.Game.Graphics.Backgrounds;
 using osu.Framework.Configuration;
+using System.Linq;
 
 namespace osu.Game.Overlays.BeatmapSetInspector
 {
@@ -26,13 +27,15 @@ namespace osu.Game.Overlays.BeatmapSetInspector
         private const float header_spacing = 10;
 
         private readonly Box modeBackground;
-        protected readonly BeatmapPicker picker;
+        private readonly BeatmapPicker picker;
         private readonly FavouriteButton favourite;
 
-        public readonly Bindable<BeatmapInfo> SelectedBeatmap = new Bindable<BeatmapInfo>();
+        public readonly Bindable<BeatmapInfo> SelectedBeatmap;
+        public readonly BeatmapDetails Details;
 
         public BeatmapHeader(BeatmapSetInfo set)
         {
+            SelectedBeatmap = new Bindable<BeatmapInfo>() { Value = set.Beatmaps.FirstOrDefault() };
             RelativeSizeAxes = Axes.X;
             AutoSizeAxes = Axes.Y;
             Masking = true;
@@ -44,7 +47,6 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             };
 
             FillFlowContainer buttons;
-            BeatmapDetails details;
             Children = new Drawable[]
             {
                 new Container
@@ -144,7 +146,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                                                     Font = @"Exo2.0-BoldItalic",
                                                     Margin = new MarginPadding { Left = BeatmapPicker.TILE_ICON_PADDING },
                                                 },
-                                                picker = new BeatmapPicker(set)
+                                                picker = new BeatmapPicker(set, SelectedBeatmap)
                                                 {
                                                     Anchor = Anchor.BottomLeft,
                                                     Origin = Anchor.BottomLeft,
@@ -153,7 +155,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                                         },
                                     },
                                 },
-                                details = new BeatmapDetails(set),
+                                Details = new BeatmapDetails(set),
                             },
                         },
                     },
@@ -161,8 +163,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             };
 
             favourite.Favourited.Value = false; //todo: use proper initial value
-            SelectedBeatmap.BindTo(picker.SelectedBeatmap);
-            SelectedBeatmap.ValueChanged += b => details.Beatmap = b;
+            SelectedBeatmap.ValueChanged += b => Details.Beatmap = b;
 
             if (set.OnlineInfo.HasVideo)
             {
@@ -189,7 +190,6 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             base.LoadComplete();
 
             //trigger an initial display since there's always a beatmap selected
-            picker.SelectedBeatmap.TriggerChange();
             SelectedBeatmap.TriggerChange();
         }
 

@@ -28,11 +28,8 @@ namespace osu.Game.Overlays.BeatmapSetInspector
 
         private readonly OsuSpriteText difficultyName, starDifficulty;
 
-        public readonly Bindable<BeatmapInfo> SelectedBeatmap;
-
-        public BeatmapPicker(BeatmapSetInfo set)
+        public BeatmapPicker(BeatmapSetInfo set, Bindable<BeatmapInfo> bindable)
         {
-            SelectedBeatmap = new Bindable<BeatmapInfo> { Value = set.Beatmaps.FirstOrDefault() };
             RelativeSizeAxes = Axes.X;
             Height = 120;
 
@@ -46,7 +43,7 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                     Spacing = new Vector2(2f),
                     OnLostHover = () =>
                     {
-                        showDifficulty(SelectedBeatmap.Value);
+                        showDifficulty(bindable.Value);
                         starDifficulty.FadeOut(100);
                     },
                 },
@@ -96,8 +93,8 @@ namespace osu.Game.Overlays.BeatmapSetInspector
                 },
             };
 
-            SelectedBeatmap.ValueChanged += showDifficulty;
-            tiles.ChildrenEnumerable = set.Beatmaps.Select(b => new DifficultyTile(SelectedBeatmap, b)
+            bindable.ValueChanged += showDifficulty;
+            tiles.ChildrenEnumerable = set.Beatmaps.Select(b => new DifficultyTile(bindable, b)
             {
                 OnHovered = beatmap =>
                 {
@@ -183,6 +180,13 @@ namespace osu.Game.Overlays.BeatmapSetInspector
             {
                 if (bindable.Value != beatmap)
                     fadeOut();
+            }
+
+            protected override void Dispose(bool isDisposing)
+            {
+                if (bindable != null)
+                    bindable.ValueChanged -= bindable_ValueChanged;
+                base.Dispose(isDisposing);
             }
 
             private void bindable_ValueChanged(BeatmapInfo value)

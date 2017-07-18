@@ -16,6 +16,8 @@ namespace osu.Game.Overlays
         public const float WIDTH_PADDING = 30;
         public const float DETAILS_WIDTH = 275;
 
+        private readonly BeatmapHeader header;
+
         public BeatmapSetInspectorOverlay(BeatmapSetInfo set)
         {
             Anchor = Anchor.TopCentre;
@@ -31,7 +33,6 @@ namespace osu.Game.Overlays
 
             //todo: wave colours
 
-            BeatmapHeader header;
             BeatmapInfoArea info;
             Children = new Drawable[]
             {
@@ -60,6 +61,7 @@ namespace osu.Game.Overlays
         {
             base.PopOut();
 
+            header.Details.PreviewButton.Playing = false;
             FadeEdgeEffectTo(0, DISAPPEAR_DURATION, EasingTypes.Out);
         }
     }
