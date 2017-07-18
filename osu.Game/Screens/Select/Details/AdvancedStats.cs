@@ -11,12 +11,13 @@ using osu.Game.Database;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics.UserInterface;
+using System;
 
 namespace osu.Game.Screens.Select.Details
 {
     public class AdvancedStats : Container
     {
-        private readonly StatRow circleSize, hpDrain, accuracy, approachRate, starDifficulty;
+        private readonly StatRow firstValue, hpDrain, accuracy, approachRate, starDifficulty;
 
         private BeatmapInfo beatmap;
         public BeatmapInfo Beatmap
@@ -27,7 +28,18 @@ namespace osu.Game.Screens.Select.Details
                 if (value == beatmap) return;
                 beatmap = value;
 
-                circleSize.Value = beatmap.Difficulty.CircleSize;
+                //mania specific
+                if (Beatmap.Ruleset.ID == 3)
+                {
+                    firstValue.Name = "Key Amount";
+                    firstValue.Value = (int)Math.Round(Beatmap.Difficulty.CircleSize);
+                }
+                else
+                {
+                    firstValue.Name = "Circle Size";
+                    firstValue.Value = Beatmap.Difficulty.CircleSize;
+                }
+
                 hpDrain.Value = beatmap.Difficulty.DrainRate;
                 accuracy.Value = beatmap.Difficulty.OverallDifficulty;
                 approachRate.Value = beatmap.Difficulty.ApproachRate;
@@ -44,12 +56,11 @@ namespace osu.Game.Screens.Select.Details
                 Spacing = new Vector2(4f),
                 Children = new[]
                 {
-                    //todo: per-ruleset stats
-                    circleSize = new StatRow("Circle Size"),
-                    hpDrain = new StatRow("HP Drain"),
-                    accuracy = new StatRow("Accuracy"),
-                    approachRate = new StatRow("Approach Rate"),
-                    starDifficulty = new StatRow("Star Difficulty", 10, true),
+                    firstValue = new StatRow(), //circle size/key amount
+                    hpDrain = new StatRow { Name = "HP Drain" },
+                    accuracy = new StatRow { Name = "Accuracy" },
+                    approachRate = new StatRow { Name = "Approach Rate" },
+                    starDifficulty = new StatRow(10, true) { Name = "Star Difficulty" },
                 },
             };
         }
@@ -70,6 +81,12 @@ namespace osu.Game.Screens.Select.Details
             private readonly OsuSpriteText name, value;
             private readonly Bar bar;
 
+            public string Name
+            {
+                get { return name.Text; }
+                set { name.Text = value; }
+            }
+
             private float difficultyValue;
             public float Value
             {
@@ -88,7 +105,7 @@ namespace osu.Game.Screens.Select.Details
                 set { bar.AccentColour = value; }
             }
 
-            public StatRow(string name, float maxValue = 10, bool forceDecimalPlaces = false)
+            public StatRow(float maxValue = 10, bool forceDecimalPlaces = false)
             {
                 this.maxValue = maxValue;
                 this.forceDecimalPlaces = forceDecimalPlaces;
@@ -103,7 +120,6 @@ namespace osu.Game.Screens.Select.Details
                         AutoSizeAxes = Axes.Y,
                         Child = this.name = new OsuSpriteText
                         {
-                            Text = name,
                             TextSize = 13,
                         },
                     },
