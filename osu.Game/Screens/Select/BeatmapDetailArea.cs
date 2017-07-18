@@ -65,10 +65,9 @@ namespace osu.Game.Screens.Select
             {
                 Details = new BeatmapDetails
                 {
-                    RelativeSizeAxes = Axes.X,
-                    Masking = true,
-                    Height = 352,
+                    RelativeSizeAxes = Axes.Both,
                     Alpha = 0,
+                    Padding = new MarginPadding { Vertical = 10 },
                 },
                 Leaderboard = new Leaderboard
                 {

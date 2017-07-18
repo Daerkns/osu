@@ -22,7 +22,7 @@ namespace osu.Desktop.VisualTests.Tests
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
-                Size = new Vector2(551f, 343f),
+                Size = new Vector2(541f, 343f),
                 Beatmap = new BeatmapInfo
                 {
                     Version = "Labyrinth Oni",

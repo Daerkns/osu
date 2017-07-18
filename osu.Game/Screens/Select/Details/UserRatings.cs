@@ -69,12 +69,14 @@ namespace osu.Game.Screens.Select.Details
                             {
                                 negativeRatings = new OsuSpriteText
                                 {
+                                    Text = @"0",
                                     TextSize = 13,
                                 },
                                 positiveRatings = new OsuSpriteText
                                 {
                                     Anchor = Anchor.TopRight,
                                     Origin = Anchor.TopRight,
+                                    Text = @"0",
                                     TextSize = 13,
                                 },
                             },
