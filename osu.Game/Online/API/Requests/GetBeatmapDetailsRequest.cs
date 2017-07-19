@@ -20,27 +20,62 @@ namespace osu.Game.Online.API.Requests
         protected override string Target => $@"beatmaps/{lookupString}";
     }
 
-    public class GetBeatmapDetailsResponse : BeatmapMetrics
+    public class GetBeatmapDetailsResponse : BeatmapOnlineInfo
     {
-        //the online API returns some metrics as a nested object.
+        [JsonProperty(@"mode_int")]
+        private int mode { get; set; }
+
+        [JsonProperty(@"difficulty_size")]
+        private float difficultySize { get; set; }
+
+        [JsonProperty(@"difficulty_rating")]
+        private float starRating { get; set; }
+
+        [JsonProperty(@"version")]
+        private string version { get; set; }
+
+        [JsonProperty(@"drain")]
+        private float drainRate { get; set; }
+
+        [JsonProperty(@"accuracy")]
+        private float overallDifficulty { get; set; }
+
+        [JsonProperty(@"ar")]
+        private float approachRate { get; set; }
+
         [JsonProperty(@"failtimes")]
-        private BeatmapMetrics failTimes
+        private BeatmapMetrics failTimes { get; set; }
+
+        [JsonProperty(@"beatmapset")]
+        private GetBeatmapSetsResponse set { get; set; }
+
+        public BeatmapMetrics ToMetrics()
         {
-            set
+            return new BeatmapMetrics
             {
-                Fails = value.Fails;
-                Retries = value.Retries;
-            }
+                Ratings = set.Ratings,
+                Fails = failTimes.Fails,
+                Retries = failTimes.Retries,
+            };
         }
 
-        //and other metrics in the beatmap set.
-        [JsonProperty(@"beatmapset")]
-        private BeatmapMetrics beatmapSet
+        public BeatmapInfo ToBeatmap(RulesetDatabase rulesets)
         {
-            set
+            return new BeatmapInfo
             {
-                Ratings = value.Ratings;
-            }
+                Ruleset = rulesets.GetRuleset(mode),
+                Version = version,
+                StarDifficulty = starRating,
+                BeatmapSet = set.ToBeatmapSet(rulesets, false),
+                Metrics = failTimes,
+                Difficulty = new BeatmapDifficulty
+                {
+                    DrainRate = drainRate,
+                    CircleSize = difficultySize,
+                    OverallDifficulty = overallDifficulty,
+                    ApproachRate = approachRate,
+                },
+            };
         }
     }
 }

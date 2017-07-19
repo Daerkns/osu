@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using osu.Game.Database;
 using osu.Game.Overlays;
 using osu.Game.Overlays.Direct;
+using osu.Game.Users;
 
 namespace osu.Game.Online.API.Requests
 {
@@ -45,22 +46,45 @@ namespace osu.Game.Online.API.Requests
         [JsonProperty(@"favourite_count")]
         private int favouriteCount { get; set; }
 
+        [JsonProperty(@"bpm")]
+        private double bpm { get; set; }
+
+        [JsonProperty(@"creator")]
+        private string creator { get; set; }
+
+        [JsonProperty(@"user_id")]
+        private long creatorId { get; set; }
+
+        [JsonProperty(@"video")]
+        private bool hasVideo { get; set; }
+
         [JsonProperty(@"beatmaps")]
         private IEnumerable<GetBeatmapSetsBeatmapResponse> beatmaps { get; set; }
 
-        public BeatmapSetInfo ToBeatmapSet(RulesetDatabase rulesets)
+        [JsonProperty(@"ratings")]
+        public IEnumerable<int> Ratings { get; set; }
+
+        public BeatmapSetInfo ToBeatmapSet(RulesetDatabase rulesets, bool withBeatmaps = true)
         {
             return new BeatmapSetInfo
             {
                 Metadata = this,
                 OnlineInfo = new BeatmapSetOnlineInfo
                 {
+                    Author = new User
+                    {
+                        Username = creator,
+                        Id = creatorId,
+                    },
+                    HasVideo = hasVideo,
+                    BPM = bpm,
+                    Ratings = Ratings,
                     Covers = covers,
                     Preview = preview,
                     PlayCount = playCount,
                     FavouriteCount = favouriteCount,
                 },
-                Beatmaps = beatmaps.Select(b => b.ToBeatmap(rulesets)).ToList(),
+                Beatmaps = withBeatmaps ? beatmaps.Select(b => b.ToBeatmap(rulesets)).ToList() : null,
             };
         }
 

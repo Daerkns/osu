@@ -13,27 +13,25 @@ namespace osu.Game.Database
         /// <summary>
         /// The length in milliseconds of this beatmap's song.
         /// </summary>
+        [JsonProperty(@"total_length")]
         public double Length { get; set; }
-
-        /// <summary>
-        /// The beats per minute of this beatmap's song.
-        /// </summary>
-        public double BPM { get; set; }
 
         /// <summary>
         /// The amount of circles in this beatmap.
         /// </summary>
+        [JsonProperty(@"count_circles")]
         public int CircleCount { get; set; }
 
         /// <summary>
         /// The amount of sliders in this beatmap.
         /// </summary>
+        [JsonProperty(@"count_sliders")]
         public int SliderCount { get; set; }
 
         /// <summary>
         /// The percentage of people that played this map that cleared it.
         /// </summary>
-        public int SuccessRate { get; set; }
+        public int SuccessRate => (PassCount / PlayCount) * 100;
 
         /// <summary>
         /// The amount of plays this beatmap has.

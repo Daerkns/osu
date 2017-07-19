@@ -2,11 +2,13 @@
 // Licensed under the MIT Licence - https://raw.githubusercontent.com/ppy/osu/master/LICENCE
 
 using OpenTK.Graphics;
+using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Game.Database;
 using osu.Game.Graphics.Containers;
+using osu.Game.Online.API;
 using osu.Game.Overlays.BeatmapSetInspector;
 
 namespace osu.Game.Overlays
@@ -17,6 +19,8 @@ namespace osu.Game.Overlays
         public const float DETAILS_WIDTH = 275;
 
         private readonly BeatmapHeader header;
+
+        private APIAccess api;
 
         public BeatmapSetInspectorOverlay(BeatmapSetInfo set)
         {
@@ -48,6 +52,12 @@ namespace osu.Game.Overlays
             };
 
             header.SelectedBeatmap.ValueChanged += b => info.Beatmap = b;
+        }
+
+        [BackgroundDependencyLoader]
+        private void load(APIAccess api)
+        {
+            this.api = api;
         }
 
         protected override void PopIn()

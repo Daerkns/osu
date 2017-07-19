@@ -199,8 +199,9 @@ namespace osu.Game.Screens.Select
                 {
                     if (Beatmap != requestedBeatmap) return; //beatmap was changed before loading finished
 
-                    requestedBeatmap.Metrics = r;
-                    Schedule(() => displayMetrics(r));
+                    var metrics = r.ToMetrics();
+                    requestedBeatmap.Metrics = metrics;
+                    Schedule(() => displayMetrics(metrics));
                 };
                 request.Failure += e => displayMetrics(null);
 

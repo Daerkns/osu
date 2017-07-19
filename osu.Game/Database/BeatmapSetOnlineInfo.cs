@@ -2,6 +2,7 @@
 // Licensed under the MIT Licence - https://raw.githubusercontent.com/ppy/osu/master/LICENCE
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using osu.Game.Users;
 
@@ -31,6 +32,16 @@ namespace osu.Game.Database
         /// Whether or not this beatmap set has a background video.
         /// </summary>
         public bool HasVideo { get; set; }
+
+        /// <summary>
+        /// The beats per minute of this beatmap set's song.
+        /// </summary>
+        public double BPM { get; set; }
+
+        /// <summary>
+        /// The user submitted ratings on this beatmap set;
+        /// </summary>
+        public IEnumerable<int> Ratings { get; set; }
 
         /// <summary>
         /// The different sizes of cover art for this beatmap set.

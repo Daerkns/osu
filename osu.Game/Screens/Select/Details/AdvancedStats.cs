@@ -29,14 +29,14 @@ namespace osu.Game.Screens.Select.Details
                 beatmap = value;
 
                 //mania specific
-                if ((Beatmap.Ruleset?.ID ?? 0) == 3)
+                if ((Beatmap?.Ruleset?.ID ?? 0) == 3)
                 {
-                    firstValue.Name = "Key Amount";
+                    firstValue.Title = "Key Amount";
                     firstValue.Value = (int)Math.Round(Beatmap.Difficulty.CircleSize);
                 }
                 else
                 {
-                    firstValue.Name = "Circle Size";
+                    firstValue.Title = "Circle Size";
                     firstValue.Value = Beatmap.Difficulty.CircleSize;
                 }
 
@@ -57,10 +57,10 @@ namespace osu.Game.Screens.Select.Details
                 Children = new[]
                 {
                     firstValue = new StatRow(), //circle size/key amount
-                    hpDrain = new StatRow { Name = "HP Drain" },
-                    accuracy = new StatRow { Name = "Accuracy" },
-                    approachRate = new StatRow { Name = "Approach Rate" },
-                    starDifficulty = new StatRow(10, true) { Name = "Star Difficulty" },
+                    hpDrain = new StatRow { Title = "HP Drain" },
+                    accuracy = new StatRow { Title = "Accuracy" },
+                    approachRate = new StatRow { Title = "Approach Rate" },
+                    starDifficulty = new StatRow(10, true) { Title = "Star Difficulty" },
                 },
             };
         }
@@ -81,7 +81,7 @@ namespace osu.Game.Screens.Select.Details
             private readonly OsuSpriteText name, value;
             private readonly Bar bar;
 
-            public string Name
+            public string Title
             {
                 get { return name.Text; }
                 set { name.Text = value; }
