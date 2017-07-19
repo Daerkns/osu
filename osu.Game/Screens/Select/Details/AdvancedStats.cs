@@ -29,7 +29,7 @@ namespace osu.Game.Screens.Select.Details
                 beatmap = value;
 
                 //mania specific
-                if (Beatmap.Ruleset.ID == 3)
+                if ((Beatmap.Ruleset?.ID ?? 0) == 3)
                 {
                     firstValue.Name = "Key Amount";
                     firstValue.Value = (int)Math.Round(Beatmap.Difficulty.CircleSize);

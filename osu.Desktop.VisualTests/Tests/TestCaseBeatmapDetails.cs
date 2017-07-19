@@ -23,42 +23,32 @@ namespace osu.Desktop.VisualTests.Tests
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 Size = new Vector2(541f, 343f),
-                Beatmap = new BeatmapInfo
-                {
-                    Version = "Labyrinth Oni",
-                    Metadata = new BeatmapMetadata
-                    {
-                        Source = "",
-                        Tags = "mmbk.com yuzu__rinrin charlotte",
-                    },
-                    Difficulty = new BeatmapDifficulty
-                    {
-                        CircleSize = 5,
-                        DrainRate = 5,
-                        OverallDifficulty = 6,
-                        ApproachRate = 10,
-                    },
-                    StarDifficulty = 5.08f,
-                    Metrics = new BeatmapMetrics
-                    {
-                        Ratings = Enumerable.Range(0, 10),
-                        Fails = Enumerable.Range(lastRange, 100).Select(i => i % 12 - 6),
-                        Retries = Enumerable.Range(lastRange - 3, 100).Select(i => i % 12 - 6),
-                    },
-                },
             });
 
-            AddRepeatStep("fail values", newRetryAndFailValues, 10);
-        }
-
-        private int lastRange = 1;
-
-        private void newRetryAndFailValues()
-        {
-            details.Beatmap.Metrics.Fails = Enumerable.Range(lastRange, 100).Select(i => i % 12 - 6);
-            details.Beatmap.Metrics.Retries = Enumerable.Range(lastRange - 3, 100).Select(i => i % 12 - 6);
-            details.Beatmap = details.Beatmap;
-            lastRange += 100;
+            AddStep("beatmap", () => details.Beatmap = new BeatmapInfo
+            {
+                Version = "Labyrinth Oni",
+                Metadata = new BeatmapMetadata
+                {
+                    Source = "",
+                    Tags = "mmbk.com yuzu__rinrin charlotte",
+                },
+                Difficulty = new BeatmapDifficulty
+                {
+                    CircleSize = 5,
+                    DrainRate = 5,
+                    OverallDifficulty = 6,
+                    ApproachRate = 10,
+                },
+                StarDifficulty = 5.08f,
+                Metrics = new BeatmapMetrics
+                {
+                    Ratings = Enumerable.Range(0, 10),
+                    Fails = Enumerable.Range(0, 100).Select(i => i % 12 - 6),
+                    Retries = Enumerable.Range(-3, 100).Select(i => i % 12 - 6),
+                },
+            });
+            AddStep("null beatmap", () => details.Beatmap = null);
         }
     }
 }

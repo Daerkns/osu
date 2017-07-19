@@ -24,9 +24,11 @@ namespace osu.Game.Screens.Select
     public class BeatmapDetails : Container
     {
         private const float spacing = 10;
+        private const float transition_duration = 250;
 
         private readonly FillFlowContainer top, statsFlow;
         private readonly AdvancedStats advanced;
+        private readonly DetailBox ratingsContainer;
         private readonly UserRatings ratings;
         private readonly ScrollContainer metadataScroll;
         private readonly MetadataSection description, source, tags;
@@ -91,7 +93,7 @@ namespace osu.Game.Screens.Select
                                                 Padding = new MarginPadding { Horizontal = spacing, Top = spacing * 2, Bottom = spacing },
                                             },
                                         },
-                                        new DetailBox
+                                        ratingsContainer = new DetailBox
                                         {
                                             Child = ratings = new UserRatings
                                             {
@@ -112,6 +114,7 @@ namespace osu.Game.Screens.Select
                                     {
                                         RelativeSizeAxes = Axes.X,
                                         AutoSizeAxes = Axes.Y,
+                                        LayoutDuration = transition_duration,
                                         Spacing = new Vector2(spacing * 2),
                                         Margin = new MarginPadding { Top = spacing * 2 },
                                         Children = new[]
@@ -176,14 +179,17 @@ namespace osu.Game.Screens.Select
 
         private void updateStatistics()
         {
-            if (Beatmap == null) return;
+            if (Beatmap == null)
+            {
+                clearStats();
+                return;
+            }
 
+            ratingsContainer.FadeIn(transition_duration);
             advanced.Beatmap = Beatmap;
             description.Text = Beatmap.Version;
             source.Text = Beatmap.Metadata.Source;
             tags.Text = Beatmap.Metadata.Tags;
-
-            source.Alpha = string.IsNullOrEmpty(Beatmap.Metadata.Source) ? 0f : 1f;
 
             var requestedBeatmap = Beatmap;
             if (requestedBeatmap.Metrics == null)
@@ -215,11 +221,11 @@ namespace osu.Game.Screens.Select
             if (hasRatings)
             {
                 ratings.Metrics = metrics;
-                ratings.FadeIn(500);
+                ratings.FadeIn(transition_duration);
             }
             else if (failOnMissing)
             {
-                ratings.FadeTo(0.25f, 500);
+                ratings.FadeTo(0.25f, transition_duration);
                 ratings.Metrics = new BeatmapMetrics
                 {
                     Ratings = new int[10],
@@ -229,17 +235,39 @@ namespace osu.Game.Screens.Select
             if (hasRetriesFails)
             {
                 failRetryGraph.Metrics = metrics;
-                failRetryContainer.FadeIn(500);
+                failRetryContainer.FadeIn(transition_duration);
             }
             else if (failOnMissing)
             {
-                failRetryContainer.FadeTo(0.25f, 500);
+                failRetryContainer.FadeTo(0.25f, transition_duration);
                 failRetryGraph.Metrics = new BeatmapMetrics
                 {
                     Fails = new int[100],
                     Retries = new int[100],
                 };
             }
+        }
+
+        private void clearStats()
+        {
+            description.Text = null;
+            source.Text = null;
+            tags.Text = null;
+            advanced.Beatmap = new BeatmapInfo
+            {
+                StarDifficulty = 0,
+                Difficulty = new BeatmapDifficulty
+                {
+                    CircleSize = 0,
+                    DrainRate = 0,
+                    OverallDifficulty = 0,
+                    ApproachRate = 0,
+                },
+            };
+
+            loading.Hide();
+            ratingsContainer.FadeOut(transition_duration);
+            failRetryContainer.FadeOut(transition_duration);
         }
 
         private class DetailBox : Container
@@ -277,6 +305,13 @@ namespace osu.Game.Screens.Select
             {
                 set
                 {
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        FadeOut(transition_duration);
+                        return;
+                    }
+
+                    FadeIn(transition_duration);
                     textFlow.Clear();
                     textFlow.AddText(value, s => s.TextSize = 14);
                 }
@@ -340,13 +375,13 @@ namespace osu.Game.Screens.Select
 
             protected override void PopIn()
             {
-                FadeIn(500, EasingTypes.OutQuint);
+                FadeIn(transition_duration, EasingTypes.OutQuint);
                 loading.State = Visibility.Visible;
             }
 
             protected override void PopOut()
             {
-                FadeOut(500, EasingTypes.OutQuint);
+                FadeOut(transition_duration, EasingTypes.OutQuint);
                 loading.State = Visibility.Hidden;
             }
         }
