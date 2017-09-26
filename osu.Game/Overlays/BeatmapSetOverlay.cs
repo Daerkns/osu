@@ -100,6 +100,7 @@ namespace osu.Game.Overlays
         protected override void PopOut()
         {
             base.PopOut();
+            header.Details.Preview.Playing = false;
             FadeEdgeEffectTo(0, DISAPPEAR_DURATION, Easing.Out);
         }
 

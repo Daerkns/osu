@@ -16,11 +16,12 @@ namespace osu.Game.Overlays.BeatmapSet
     {
         private const float transition_duration = 250;
 
-        private readonly PreviewButton preview;
         private readonly DetailBox ratingsBox;
         private readonly BasicStats basic;
         private readonly AdvancedStats advanced;
         private readonly UserRatings ratings;
+
+        public readonly PreviewButton Preview;
 
         private BeatmapSetInfo beatmapSet;
         public BeatmapSetInfo BeatmapSet
@@ -31,7 +32,7 @@ namespace osu.Game.Overlays.BeatmapSet
                 if (value == beatmapSet) return;
                 beatmapSet = value;
 
-                basic.BeatmapSet = preview.BeatmapSet = BeatmapSet;
+                basic.BeatmapSet = Preview.BeatmapSet = BeatmapSet;
                 ratingsBox.FadeTo(BeatmapSet.OnlineInfo.IsRanked ? 1f : 0f, transition_duration);
             }
         }
@@ -59,7 +60,7 @@ namespace osu.Game.Overlays.BeatmapSet
 
             Children = new Drawable[]
             {
-                preview = new PreviewButton
+                Preview = new PreviewButton
                 {
                     RelativeSizeAxes = Axes.X,
                 },
