@@ -3,14 +3,18 @@
 
 using OpenTK;
 using OpenTK.Graphics;
+using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Input;
+using osu.Framework.Threading;
 using osu.Game.Beatmaps;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Containers;
+using osu.Game.Online.API;
+using osu.Game.Online.API.Requests;
 using osu.Game.Overlays.BeatmapSet;
 
 namespace osu.Game.Overlays
@@ -22,6 +26,9 @@ namespace osu.Game.Overlays
 
         private readonly Header header;
         private readonly Info info;
+
+        private APIAccess api;
+        private ScheduledDelegate pendingBeatmapSwitch;
 
         public BeatmapSetOverlay()
         {
@@ -69,7 +76,19 @@ namespace osu.Game.Overlays
                 },
             };
 
-            header.Picker.Beatmap.ValueChanged += b => info.Beatmap = b;
+            header.Picker.Beatmap.ValueChanged += b =>
+            {
+                info.Beatmap = b;
+
+                pendingBeatmapSwitch?.Cancel();
+                pendingBeatmapSwitch = Schedule(() => updateStatistics(b));
+            };
+        }
+
+        [BackgroundDependencyLoader]
+        private void load(APIAccess api)
+        {
+            this.api = api;
         }
 
         protected override void PopIn()
@@ -94,6 +113,25 @@ namespace osu.Game.Overlays
         {
             header.BeatmapSet = info.BeatmapSet = set;
             Show();
+        }
+
+        private void updateStatistics(BeatmapInfo beatmap)
+        {
+            if (beatmap == null) return;
+
+            if (beatmap.Metrics == null)
+            {
+                var lookup = new GetBeatmapDetailsRequest(beatmap);
+                lookup.Success += result =>
+                {
+                    beatmap.Metrics = result;
+                    if (beatmap != header.Picker.Beatmap.Value) return;
+
+                    Schedule(header.Picker.Beatmap.TriggerChange);
+                };
+
+                api.Queue(lookup);
+            }
         }
     }
 }

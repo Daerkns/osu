@@ -27,7 +27,7 @@ namespace osu.Game.Overlays.BeatmapSet
             get { return beatmap; }
             set
             {
-                if (value == beatmap) return;
+                // if (value == beatmap) return;
                 beatmap = value;
 
                 var rate = (float)beatmap.OnlineInfo.PassCount / beatmap.OnlineInfo.PlayCount;

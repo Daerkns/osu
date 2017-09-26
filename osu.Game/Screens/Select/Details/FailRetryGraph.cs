@@ -22,11 +22,13 @@ namespace osu.Game.Screens.Select.Details
             get { return metrics; }
             set
             {
-                if (value == metrics) return;
+                // if (value == metrics) return;
                 metrics = value;
 
-                var retries = Metrics.Retries;
-                var fails = Metrics.Fails;
+                var retries = Metrics?.Retries;
+                var fails = Metrics?.Fails;
+
+                if (retries == null || fails == null) return;
 
                 float maxValue = fails.Zip(retries, (fail, retry) => fail + retry).Max();
                 failGraph.MaxValue = maxValue;

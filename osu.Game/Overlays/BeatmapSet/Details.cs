@@ -42,7 +42,7 @@ namespace osu.Game.Overlays.BeatmapSet
             get { return beatmap; }
             set
             {
-                if (value == beatmap) return;
+                // if (value == beatmap) return;
                 beatmap = value;
 
                 basic.Beatmap = advanced.Beatmap = Beatmap;

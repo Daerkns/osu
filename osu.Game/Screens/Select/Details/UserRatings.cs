@@ -26,10 +26,12 @@ namespace osu.Game.Screens.Select.Details
             get { return metrics; }
             set
             {
-                if (value == metrics) return;
+                // if (value == metrics) return;
                 metrics = value;
 
-                var ratings = Metrics.Ratings.ToList();
+                var ratings = Metrics?.Ratings?.ToList();
+                if (ratings == null) return;
+
                 negativeRatings.Text = ratings.GetRange(0, ratings.Count / 2).Sum().ToString();
                 positiveRatings.Text = ratings.GetRange(ratings.Count / 2, ratings.Count / 2).Sum().ToString();
                 ratingsBar.Length = (float)ratings.GetRange(0, ratings.Count / 2).Sum() / ratings.Sum();
