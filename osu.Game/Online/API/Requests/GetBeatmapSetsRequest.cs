@@ -72,6 +72,9 @@ namespace osu.Game.Online.API.Requests
         [JsonProperty(@"video")]
         private bool hasVideo { get; set; }
 
+        [JsonProperty(@"status")]
+        private string status { get; set; }
+
         [JsonProperty(@"beatmaps")]
         private IEnumerable<GetBeatmapSetsBeatmapResponse> beatmaps { get; set; }
 
@@ -89,11 +92,12 @@ namespace osu.Game.Online.API.Requests
                         Username = creatorUsername,
                     },
                     Preview = @"https:" + preview,
+                    IsRanked = status == @"ranked",
                     PlayCount = playCount,
                     FavouriteCount = favouriteCount,
-                    Submitted = DateTimeOffset.Parse(submittedDate),
+                    SubmittedDate = DateTimeOffset.Parse(submittedDate),
                     LastUpdated = DateTimeOffset.Parse(lastUpdated),
-                    Ranked = DateTimeOffset.Parse(rankedDate),
+                    RankedDate = DateTimeOffset.Parse(rankedDate),
                     BPM = bpm,
                     Covers = covers,
                 },

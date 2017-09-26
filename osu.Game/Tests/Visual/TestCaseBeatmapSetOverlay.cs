@@ -43,10 +43,11 @@ namespace osu.Game.Tests.Visual
                     OnlineInfo = new BeatmapSetOnlineInfo
                     {
                         Preview = @"https://b.ppy.sh/preview/415886.mp3",
+                        IsRanked = true,
                         PlayCount = 681380,
                         FavouriteCount = 356,
-                        Submitted = new DateTime(2016, 2, 10),
-                        Ranked = new DateTime(2016, 6, 19),
+                        SubmittedDate = new DateTime(2016, 2, 10),
+                        RankedDate = new DateTime(2016, 6, 19),
                         BPM = 236,
                         Author = new User
                         {
@@ -217,10 +218,11 @@ namespace osu.Game.Tests.Visual
                     OnlineInfo = new BeatmapSetOnlineInfo
                     {
                         Preview = @"https://b.ppy.sh/preview/625493.mp3",
+                        IsRanked = false,
                         PlayCount = 22996,
                         FavouriteCount = 58,
-                        Submitted = new DateTime(2016, 6, 11),
-                        Ranked = new DateTime(2016, 7, 12),
+                        SubmittedDate = new DateTime(2016, 6, 11),
+                        RankedDate = new DateTime(2016, 7, 12),
                         BPM = 160,
                         Author = new User
                         {

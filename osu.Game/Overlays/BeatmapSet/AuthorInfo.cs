@@ -34,15 +34,15 @@ namespace osu.Game.Overlays.BeatmapSet
                 fields.Children = new Drawable[]
                 {
                     new Field("made by", i.Author.Username, @"Exo2.0-RegularItalic"),
-                    new Field("submitted on", i.Submitted.ToString(@"MMM d, yyyy"), @"Exo2.0-Bold")
+                    new Field("submitted on", i.SubmittedDate.ToString(@"MMM d, yyyy"), @"Exo2.0-Bold")
                     {
                         Margin = new MarginPadding { Top = 5 },
                     },
                 };
 
-                if (i.Ranked.HasValue)
+                if (i.RankedDate.HasValue)
                 {
-                    fields.Add(new Field("ranked on ", i.Ranked.Value.ToString(@"MMM d, yyyy"), @"Exo2.0-Bold"));
+                    fields.Add(new Field("ranked on ", i.RankedDate.Value.ToString(@"MMM d, yyyy"), @"Exo2.0-Bold"));
                 }
                 else if (i.LastUpdated.HasValue)
                 {

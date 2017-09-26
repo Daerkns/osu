@@ -14,7 +14,10 @@ namespace osu.Game.Overlays.BeatmapSet
 {
     public class Details : FillFlowContainer
     {
+        private const float transition_duration = 250;
+
         private readonly PreviewButton preview;
+        private readonly DetailBox ratingsBox;
         private readonly BasicStats basic;
         private readonly AdvancedStats advanced;
         private readonly UserRatings ratings;
@@ -29,6 +32,7 @@ namespace osu.Game.Overlays.BeatmapSet
                 beatmapSet = value;
 
                 basic.BeatmapSet = preview.BeatmapSet = BeatmapSet;
+                ratingsBox.FadeTo(BeatmapSet.OnlineInfo.IsRanked ? 1f : 0f, transition_duration);
             }
         }
 
@@ -51,6 +55,7 @@ namespace osu.Game.Overlays.BeatmapSet
             Width = BeatmapSetOverlay.RIGHT_WIDTH;
             AutoSizeAxes = Axes.Y;
             Spacing = new Vector2(1f);
+            LayoutDuration = transition_duration;
 
             Children = new Drawable[]
             {
@@ -76,7 +81,7 @@ namespace osu.Game.Overlays.BeatmapSet
                         Margin = new MarginPadding { Vertical = 7.5f },
                     },
                 },
-                new DetailBox
+                ratingsBox = new DetailBox
                 {
                     Child = ratings = new UserRatings
                     {

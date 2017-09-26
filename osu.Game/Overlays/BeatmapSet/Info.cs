@@ -23,6 +23,7 @@ namespace osu.Game.Overlays.BeatmapSet
         private readonly MetadataSection description, source, tags;
         private readonly Box successRateBackground;
         private readonly SuccessRate successRate;
+        private readonly OsuSpriteText unrankedLabel;
 
         private BeatmapSetInfo beatmapSet;
         public BeatmapSetInfo BeatmapSet
@@ -35,6 +36,17 @@ namespace osu.Game.Overlays.BeatmapSet
 
                 source.Text = BeatmapSet.Metadata.Source;
                 tags.Text = BeatmapSet.Metadata.Tags;
+
+                if (BeatmapSet.OnlineInfo.IsRanked)
+                {
+                    successRate.FadeIn(transition_duration);
+                    unrankedLabel.FadeOut(transition_duration);
+                }
+                else
+                {
+                    successRate.FadeOut(transition_duration);
+                    unrankedLabel.FadeIn(transition_duration);
+                }
             }
         }
 
@@ -120,6 +132,14 @@ namespace osu.Game.Overlays.BeatmapSet
                                     RelativeSizeAxes = Axes.Both,
                                     Padding = new MarginPadding { Top = 20, Horizontal = 15 },
                                 },
+                                unrankedLabel = new OsuSpriteText
+                                {
+                                    Anchor = Anchor.Centre,
+                                    Origin = Anchor.Centre,
+                                    Text = "Unranked beatmap",
+                                    TextSize = 14,
+                                    Shadow = false,
+                                },
                             },
                         },
                     },
@@ -131,7 +151,7 @@ namespace osu.Game.Overlays.BeatmapSet
         private void load(OsuColour colours)
         {
             successRateBackground.Colour = colours.GrayE;
-            source.TextColour = description.TextColour = colours.Gray5;
+            source.TextColour = description.TextColour = unrankedLabel.Colour = colours.Gray5;
             tags.TextColour = colours.BlueDark;
         }
 
