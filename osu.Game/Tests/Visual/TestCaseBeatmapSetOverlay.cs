@@ -44,6 +44,7 @@ namespace osu.Game.Tests.Visual
                     {
                         Preview = @"https://b.ppy.sh/preview/415886.mp3",
                         IsRanked = true,
+                        IsFavourited = true,
                         PlayCount = 681380,
                         FavouriteCount = 356,
                         SubmittedDate = new DateTime(2016, 2, 10),
@@ -219,6 +220,7 @@ namespace osu.Game.Tests.Visual
                     {
                         Preview = @"https://b.ppy.sh/preview/625493.mp3",
                         IsRanked = false,
+                        IsFavourited = false,
                         PlayCount = 22996,
                         FavouriteCount = 58,
                         SubmittedDate = new DateTime(2016, 6, 11),

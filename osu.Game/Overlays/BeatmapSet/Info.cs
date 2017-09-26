@@ -131,6 +131,7 @@ namespace osu.Game.Overlays.BeatmapSet
                                 {
                                     RelativeSizeAxes = Axes.Both,
                                     Padding = new MarginPadding { Top = 20, Horizontal = 15 },
+                                    Alpha = 0f,
                                 },
                                 unrankedLabel = new OsuSpriteText
                                 {
@@ -139,6 +140,7 @@ namespace osu.Game.Overlays.BeatmapSet
                                     Text = "Unranked beatmap",
                                     TextSize = 14,
                                     Shadow = false,
+                                    Alpha = 0f,
                                 },
                             },
                         },
