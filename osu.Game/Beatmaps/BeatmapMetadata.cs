@@ -24,7 +24,6 @@ namespace osu.Game.Beatmaps
 
         public string Source { get; set; }
 
-        [JsonProperty(@"tags")]
         public string Tags { get; set; }
         public int PreviewTime { get; set; }
         public string AudioFile { get; set; }
