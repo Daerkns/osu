@@ -27,6 +27,7 @@ namespace osu.Game.Overlays.BeatmapSet
         private readonly Container coverContainer;
         private readonly OsuSpriteText title, artist;
         private readonly AuthorInfo author;
+        private readonly FavouriteButton favouriteButton;
         private readonly Details details;
 
         private DelayedLoadWrapper cover;
@@ -45,6 +46,7 @@ namespace osu.Game.Overlays.BeatmapSet
                 Picker.BeatmapSet = author.BeatmapSet = details.BeatmapSet = BeatmapSet;
                 title.Text = BeatmapSet.Metadata.Title;
                 artist.Text = BeatmapSet.Metadata.Artist;
+                favouriteButton.Favourited.Value = BeatmapSet.OnlineInfo.IsFavourited;
 
                 cover?.FadeOut(400, Easing.Out);
                 coverContainer.Add(cover = new DelayedLoadWrapper(new BeatmapSetCover(BeatmapSet)
@@ -161,7 +163,7 @@ namespace osu.Game.Overlays.BeatmapSet
                                         Margin = new MarginPadding { Top = 10 },
                                         Children = new Drawable[]
                                         {
-                                            new FavouriteButton(),
+                                            favouriteButton = new FavouriteButton(),
                                             new Container
                                             {
                                                 RelativeSizeAxes = Axes.Both,

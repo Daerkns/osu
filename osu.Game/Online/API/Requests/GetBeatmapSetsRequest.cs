@@ -45,6 +45,9 @@ namespace osu.Game.Online.API.Requests
         [JsonProperty(@"favourite_count")]
         private int favouriteCount { get; set; }
 
+        [JsonProperty(@"has_favourited")]
+        private bool favourited { get; set; }
+
         [JsonProperty(@"submitted_date")]
         private string submittedDate { get; set; }
 
@@ -93,6 +96,7 @@ namespace osu.Game.Online.API.Requests
                     },
                     Preview = @"https:" + preview,
                     IsRanked = status == @"ranked",
+                    IsFavourited = favourited,
                     PlayCount = playCount,
                     FavouriteCount = favouriteCount,
                     SubmittedDate = DateTimeOffset.Parse(submittedDate),

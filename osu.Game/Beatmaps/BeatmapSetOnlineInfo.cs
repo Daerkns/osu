@@ -23,6 +23,11 @@ namespace osu.Game.Beatmaps
         public bool IsRanked { get; set; }
 
         /// <summary>
+        /// Whether or not the user has favourited this BeatmapSet.
+        /// </summary>
+        public bool IsFavourited { get; set; }
+
+        /// <summary>
         /// The date this beatmap set was submitted to the online listing.
         /// </summary>
         public DateTimeOffset SubmittedDate { get; set; }
