@@ -106,7 +106,7 @@ namespace osu.Game.Online.API.Requests
                     var beatmap = b.ToBeatmap(rulesets);
                     beatmap.OnlineInfo.HasVideo = hasVideo;
                     return beatmap;
-                }).OrderBy(b => b.StarDifficulty).ToList(),
+                }).OrderBy(b => b.Ruleset.ID).ThenBy(b => b.StarDifficulty).ToList(),
             };
         }
 

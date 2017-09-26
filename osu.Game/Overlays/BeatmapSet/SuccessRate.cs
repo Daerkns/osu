@@ -31,6 +31,8 @@ namespace osu.Game.Overlays.BeatmapSet
                 beatmap = value;
 
                 var rate = (float)beatmap.OnlineInfo.PassCount / beatmap.OnlineInfo.PlayCount;
+                if (Double.IsNaN(rate)) rate = 0;
+
                 successPercent.Text = $"{Math.Round(rate * 100)}%";
                 successRate.Length = rate;
                 percentContainer.ResizeWidthTo(successRate.Length, 250, Easing.InOutCubic);
