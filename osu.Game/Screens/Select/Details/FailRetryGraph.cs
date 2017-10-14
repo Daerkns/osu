@@ -22,7 +22,7 @@ namespace osu.Game.Screens.Select.Details
             get { return metrics; }
             set
             {
-                // if (value == metrics) return;
+                if (value == metrics) return;
                 metrics = value;
 
                 var retries = Metrics?.Retries;

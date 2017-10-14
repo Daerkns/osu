@@ -126,7 +126,8 @@ namespace osu.Game.Overlays
                 lookup.Success += result =>
                 {
                     beatmap.Metrics = result;
-                    if (beatmap != header.Picker.Beatmap.Value) return;
+                    if (beatmap != header.Picker.Beatmap.Value)
+                        return;
 
                     Schedule(header.Picker.Beatmap.TriggerChange);
                 };
