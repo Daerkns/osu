@@ -16,6 +16,7 @@ using osu.Game.Graphics.Containers;
 using osu.Game.Online.API;
 using osu.Game.Online.API.Requests;
 using osu.Game.Overlays.BeatmapSet;
+using osu.Game.Rulesets;
 
 namespace osu.Game.Overlays
 {
@@ -28,7 +29,11 @@ namespace osu.Game.Overlays
         private readonly Info info;
 
         private APIAccess api;
+        private RulesetStore rulesets;
         private ScheduledDelegate pendingBeatmapSwitch;
+
+        // receive input outside our bounds so we can trigger a close event on ourselves.
+        public override bool ReceiveMouseInputAt(Vector2 screenSpacePos) => true;
 
         public BeatmapSetOverlay()
         {
@@ -86,9 +91,10 @@ namespace osu.Game.Overlays
         }
 
         [BackgroundDependencyLoader]
-        private void load(APIAccess api)
+        private void load(APIAccess api, RulesetStore rulesets)
         {
             this.api = api;
+            this.rulesets = rulesets;
         }
 
         protected override void PopIn()
@@ -100,7 +106,7 @@ namespace osu.Game.Overlays
         protected override void PopOut()
         {
             base.PopOut();
-            header.Details.Preview.Playing = false;
+            //header.Details.Preview.Playing = false;
             FadeEdgeEffectTo(0, DISAPPEAR_DURATION, Easing.Out);
         }
 
@@ -108,6 +114,14 @@ namespace osu.Game.Overlays
         {
             State = Visibility.Hidden;
             return true;
+        }
+
+        public void ShowBeatmapSet(int beatmapSetId)
+        {
+            // todo: display the overlay while we are loading here. we need to support setting BeatmapSet to null for this to work.
+            var req = new GetBeatmapSetRequest(beatmapSetId);
+            req.Success += res => ShowBeatmapSet(res.ToBeatmapSet(rulesets));
+            api.Queue(req);
         }
 
         public void ShowBeatmapSet(BeatmapSetInfo set)
