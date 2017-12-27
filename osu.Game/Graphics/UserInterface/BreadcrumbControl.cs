@@ -13,13 +13,13 @@ namespace osu.Game.Graphics.UserInterface
 {
     public class BreadcrumbControl<T> : OsuTabControl<T>
     {
-        private const float padding = 10;
+        private const float padding = 20;
 
         protected override TabItem<T> CreateTabItem(T value) => new BreadcrumbTabItem(value);
 
         public BreadcrumbControl()
         {
-            Height = 26;
+            Height = 34;
             TabContainer.Spacing = new Vector2(padding, 0f);
             Current.ValueChanged += tab =>
             {
@@ -74,7 +74,10 @@ namespace osu.Game.Graphics.UserInterface
             public BreadcrumbTabItem(T value) : base(value)
             {
                 Text.TextSize = 16;
-                Padding = new MarginPadding { Right = padding + 8 }; //padding + chevron width
+                Text.Margin = new MarginPadding { Top = 8, Bottom = 10 };
+                Padding = new MarginPadding { Right = padding + 12 }; //padding + chevron width
+                Bar.Height = 2;
+
                 Add(Chevron = new SpriteIcon
                 {
                     Anchor = Anchor.CentreRight,

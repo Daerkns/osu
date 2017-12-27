@@ -127,6 +127,7 @@
     <Compile Include="Visual\TestCaseButtonSystem.cs" />
     <Compile Include="Visual\TestCaseGameplayMenuOverlay.cs" />
     <Compile Include="Visual\TestCaseMods.cs" />
+    <Compile Include="Visual\TestCaseMultiplayerScreens.cs" />
     <Compile Include="Visual\TestCaseMusicController.cs" />
     <Compile Include="Visual\TestCaseNotificationOverlay.cs" />
     <Compile Include="Visual\TestCaseOnScreenDisplay.cs" />

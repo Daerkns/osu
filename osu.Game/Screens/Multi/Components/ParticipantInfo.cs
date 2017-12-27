@@ -12,7 +12,7 @@ using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Users;
 
-namespace osu.Game.Screens.Multiplayer
+namespace osu.Game.Screens.Multi.Components
 {
     public class ParticipantInfo : Container
     {

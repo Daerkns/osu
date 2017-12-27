@@ -8,7 +8,7 @@ using osu.Game.Beatmaps;
 using osu.Game.Beatmaps.Drawables;
 using osu.Game.Online.Multiplayer;
 
-namespace osu.Game.Screens.Multiplayer
+namespace osu.Game.Screens.Multi.Components
 {
     public class ModeTypeInfo : Container
     {
