@@ -14,7 +14,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Game.Graphics;
 using osu.Game.Graphics.Sprites;
 using osu.Game.Graphics.UserInterface;
-
+using osu.Game.Overlays.SearchableList;
 using Container = osu.Framework.Graphics.Containers.Container;
 
 namespace osu.Game.Screens.Multi.Components
@@ -44,7 +44,7 @@ namespace osu.Game.Screens.Multi.Components
                 new Container
                 {
                     RelativeSizeAxes = Axes.Both,
-                    Padding = new MarginPadding { Horizontal = 80 },
+                    Padding = new MarginPadding { Horizontal = SearchableListOverlay.WIDTH_PADDING },
                     Children = new Drawable[]
                     {
                         new FillFlowContainer
@@ -135,32 +135,6 @@ namespace osu.Game.Screens.Multi.Components
                 Colour = colours.Yellow;
             }
         }
-
-        // private class SearchArea : Container
-        // {
-        //     public SearchArea()
-        //     {
-        //         RelativeSizeAxes = Axes.X;
-        //         Height = 96;
-
-        //         Children = new Drawable[]
-        //         {
-        //             new Box
-        //             {
-        //                 RelativeSizeAxes = Axes.Both,
-        //                 Colour = OsuColour.FromHex(@"362E42"),
-        //             },
-        //             new Container
-        //             {
-        //                 Padding = new MarginPadding { Horizontal = horizontal_padding },
-        //                 Children = new Drawable[]
-        //                 {
-
-        //                 },
-        //             },
-        //         };
-        //     }
-        // }
     }
 
     public enum MultiplayerTab

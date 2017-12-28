@@ -1,21 +1,44 @@
 ﻿// Copyright (c) 2007-2017 ppy Pty Ltd <contact@ppy.sh>.
 // Licensed under the MIT Licence - https://raw.githubusercontent.com/ppy/osu/master/LICENCE
 
-using osu.Framework.Graphics;
-using osu.Framework.Graphics.Containers;
+using osu.Framework.Screens;
 
 namespace osu.Game.Screens.Multi.Screens
 {
-    public class MultiplayerScreen : Container
+    public class MultiplayerScreen : OsuScreen
     {
-        protected override Container<Drawable> Content => content;
-        private readonly Container content;
+        public override bool RequestsFocus => IsCurrentScreen;
 
-        public MultiplayerScreen()
+        public override bool AcceptsFocus => true;
+
+        protected override void OnEntering(Screen last)
         {
-            RelativeSizeAxes = Axes.Both;
+            base.OnEntering(last);
 
-            InternalChild = content = new Container { RelativeSizeAxes = Axes.Both };
+            Schedule(() => GetContainingInputManager().TriggerFocusContention(this));
+        }
+
+        protected override bool OnExiting(Screen next)
+        {
+            return base.OnExiting(next);
+
+            if (HasFocus)
+                GetContainingInputManager().ChangeFocus(null);
+        }
+
+        protected override void OnResuming(Screen last)
+        {
+            base.OnResuming(last);
+
+            Schedule(() => GetContainingInputManager().TriggerFocusContention(this));
+        }
+
+        protected override void OnSuspending(Screen next)
+        {
+            base.OnSuspending(next);
+
+            if (HasFocus)
+                GetContainingInputManager().ChangeFocus(null);
         }
     }
 }
