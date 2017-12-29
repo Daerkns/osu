@@ -20,10 +20,10 @@ namespace osu.Game.Screens.Multi.Screens
 
         protected override bool OnExiting(Screen next)
         {
-            return base.OnExiting(next);
-
             if (HasFocus)
                 GetContainingInputManager().ChangeFocus(null);
+
+            return base.OnExiting(next);
         }
 
         protected override void OnResuming(Screen last)

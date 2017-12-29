@@ -57,6 +57,14 @@ namespace osu.Game.Screens.Multi.Components
                 if (value == room) return;
                 room = value;
 
+                nameBind.UnbindBindings();
+                hostBind.UnbindBindings();
+                statusBind.UnbindBindings();
+                typeBind.UnbindBindings();
+                beatmapBind.UnbindBindings();
+                maxParticipantsBind.UnbindBindings();
+                participantsBind.UnbindBindings();
+
                 nameBind.BindTo(Room.Name);
                 hostBind.BindTo(Room.Host);
                 statusBind.BindTo(Room.Status);
