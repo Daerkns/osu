@@ -20,7 +20,8 @@ namespace osu.Game.Screens.Multi.Screens
     {
         private readonly FilterControl filter;
         private readonly Container content;
-        private readonly FillFlowContainer<DrawableRoom> roomFlow;
+        private readonly SearchContainer searchContainer;
+        private readonly RoomsContainer roomsContainer;
         private readonly RoomInspector inspector;
 
         private IEnumerable<Room> rooms;
@@ -32,7 +33,7 @@ namespace osu.Game.Screens.Multi.Screens
                 if (value == rooms) return;
                 rooms = value;
 
-                roomFlow.ChildrenEnumerable = Rooms.Select(r => new DrawableRoom(r)
+                roomsContainer.ChildrenEnumerable = Rooms.Select(r => new DrawableRoom(r)
                 {
                     State = SelectionState.NotSelected,
                     Action = room => SelectedRoom = room,
@@ -50,7 +51,7 @@ namespace osu.Game.Screens.Multi.Screens
                 selectedRoom = value;
 
                 inspector.Room = value;
-                roomFlow.Children.ForEach(c =>
+                roomsContainer.Children.ForEach(c =>
                 {
                     if (c.Room == SelectedRoom)
                     {
@@ -78,12 +79,17 @@ namespace osu.Game.Screens.Multi.Screens
                         {
                             RelativeSizeAxes = Axes.Both,
                             Width = 0.5f,
-                            Child = roomFlow = new FillFlowContainer<DrawableRoom>
+                            Child = searchContainer = new SearchContainer
                             {
                                 RelativeSizeAxes = Axes.X,
                                 AutoSizeAxes = Axes.Y,
-                                Spacing = new Vector2(1),
-                                Padding = new MarginPadding { Top = 30 },
+                                Child = roomsContainer = new RoomsContainer
+                                {
+                                    RelativeSizeAxes = Axes.X,
+                                    AutoSizeAxes = Axes.Y,
+                                    Spacing = new Vector2(1),
+                                    Padding = new MarginPadding { Top = 30 },
+                                },
                             },
                         },
                         new Container
@@ -106,6 +112,7 @@ namespace osu.Game.Screens.Multi.Screens
             };
 
             filter.Search.Exit = Exit;
+            filter.Search.Current.ValueChanged += t => searchContainer.SearchTerm = t;
         }
 
         protected override void UpdateAfterChildren()
@@ -133,6 +140,27 @@ namespace osu.Game.Screens.Multi.Screens
             public FilterControl()
             {
                 DisplayStyleControl.Hide();
+            }
+        }
+
+        private class RoomsContainer : FillFlowContainer<DrawableRoom>, IHasFilterableChildren
+        {
+            public IEnumerable<string> FilterTerms => new string[] { };
+            public IEnumerable<IFilterable> FilterableChildren => Children;
+
+            public bool MatchingFilter
+            {
+                set
+                {
+                    if (value)
+                        InvalidateLayout();
+                }
+            }
+
+            public RoomsContainer()
+            {
+                LayoutDuration = 200;
+                LayoutEasing = Easing.OutQuint;
             }
         }
     }
